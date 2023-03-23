@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ProjectDraft1</string>
+    <string-array name="amount_days_list">
+        <item>1 раз в день</item>
+        <item>2 раза в день</item>
+        <item>3 раза в день</item>
+        <item>4 раза в день</item>
+        <item>5 раз в день</item>
+    </string-array>
+</resources>
