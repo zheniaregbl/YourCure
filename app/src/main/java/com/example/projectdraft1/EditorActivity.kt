@@ -13,11 +13,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.Toast
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import kotlinx.android.synthetic.main.activity_editor.*
 import java.util.*
-import kotlin.time.Duration.Companion.days
 
 class EditorActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditorBinding
