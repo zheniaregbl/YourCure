@@ -1,39 +1,46 @@
 package com.example.projectdraft1
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.projectdraft1.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private val adapter = MedicationAdapter()
-    private var editLauncher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        init()
-
-        editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if(it.resultCode == RESULT_OK){
-                adapter.addMedication(it.data?.getSerializableExtra("medication") as Medication)
+        binding.bNav.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.today -> {
+                    openFragment(FragmentToday())
+                }
+                R.id.statistics -> {
+                    openFragment(FragmentMeasurement())
+                }
+                R.id.pill -> {
+                    openFragment(FragmentMedicine())
+                }
+                R.id.setting -> {
+                    openFragment(FragmentSettings())
+                }
             }
+
+            true
         }
+
+        openFragment(FragmentToday())
     }
 
-    private fun init() = with(binding){
-        rcView.layoutManager = LinearLayoutManager(this@MainActivity)
-        rcView.adapter = adapter
-
-        btAdd.setOnClickListener {
-            editLauncher?.launch(Intent(this@MainActivity, EditorActivity::class.java))
-        }
+    private fun openFragment(fragment: Fragment){
+        supportFragmentManager
+            .beginTransaction().replace(R.id.placeHolder, fragment)
+            .commit()
     }
 }
