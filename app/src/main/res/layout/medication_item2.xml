@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_list"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardItem"
+        android:layout_width="340dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imagePill"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="14dp"
+            app:srcCompat="@drawable/pill_2" />
+
+        <Button
+            android:id="@+id/separation"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="68dp"
+            android:backgroundTint="@color/light_grey"
+            android:text="Button" />
+
+        <TextView
+            android:id="@+id/tvNamePill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Лекарство"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvDosePill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="38dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="1 таблетка(-и/-ок)"
+            android:textColor="@color/font_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvDoseTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="250dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="21:00"
+            android:textColor="@color/blue"
+            android:textSize="24sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

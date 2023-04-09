@@ -44,7 +44,7 @@ class EditorActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     private fun initElements() = with(binding){
         btAddEditDone.setOnClickListener {
-            val medication = Medication(selectedItemImage, edEdit.text.toString())
+            val medication = Medication(selectedItemImage, edEdit.text.toString(), 1, "")
             val editIntent = Intent().apply {
                 putExtra("medication", medication)
             }
