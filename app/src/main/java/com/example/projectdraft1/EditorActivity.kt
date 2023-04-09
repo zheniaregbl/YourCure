@@ -17,6 +17,7 @@ import com.example.projectdraft1.databinding.ActivityEditorBinding
 import kotlinx.android.synthetic.main.activity_editor.*
 import java.util.*
 
+
 class EditorActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditorBinding
     private var selectedItemImage = R.drawable.pill_1
