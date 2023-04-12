@@ -8,17 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdraft1.databinding.MedicationItem2Binding
 
 class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
-    private val medicationList = ArrayList<Medication>()
+    private var medicationDoseList = ArrayList<MedicationDose>()
 
     class MedicationHolder(item: View): RecyclerView.ViewHolder(item) {
         private val binding = MedicationItem2Binding.bind(item)
+        var itemDose: MedicationDose? = null
 
         @SuppressLint("SetTextI18n")
-        fun bind(medication: Medication) = with(binding){
-            imagePill.setImageResource(medication.imageId)
-            tvNamePill.text = medication.title
-            tvDosePill.text = "${medication.dose} таблетка(-и/-ок)"
-            tvDoseTime.text = medication.time
+        fun bind(dose: MedicationDose) = with(binding){
+            imagePill.setImageResource(dose.imageId)
+            tvNamePill.text = dose.title
+            tvDosePill.text = "${dose.amount} таблетка(-и/-ок)"
+            tvDoseTime.text = dose.time
+            itemDose = dose
         }
     }
 
@@ -31,16 +33,26 @@ class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder
     }
 
     override fun onBindViewHolder(holder: MedicationHolder, position: Int) {
-        holder.bind(medicationList[position])
+        holder.bind(medicationDoseList[position])
     }
 
     override fun getItemCount(): Int {
-        return medicationList.size
+        return medicationDoseList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addMedication(medication: Medication){
-        medicationList.add(medication)
+    fun addMedication(medication: MedicationDose){
+        medicationDoseList.add(medication)
+        notifyDataSetChanged()
+    }
+
+    fun getListAdapter(): ArrayList<MedicationDose>{
+        return medicationDoseList
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setListAdapter(list: ArrayList<MedicationDose>){
+        medicationDoseList = list
         notifyDataSetChanged()
     }
 }

@@ -29,4 +29,8 @@
     <style name="PickerTheme.ButtonBarPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/blue</item>
     </style>
+    
+    <style name="FabShape">
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>

@@ -9,12 +9,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.view.get
 import com.example.projectdraft1.databinding.ActivityEditorBinding
+import com.example.projectdraft1.db.DBManager
 import kotlinx.android.synthetic.main.activity_editor.*
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.*
 
 class EditorActivity : AppCompatActivity() {
@@ -30,6 +36,9 @@ class EditorActivity : AppCompatActivity() {
         R.drawable.pill_7
     )
     private var listLineTime = emptyArray<LinearLayout>()
+    private val dbManager = DBManager(this)
+    private var regular = 0
+    private var everyDay = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +50,68 @@ class EditorActivity : AppCompatActivity() {
         initElements()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        dbManager.openDB()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        dbManager.closeDB()
+    }
+
+    private fun formationDose(listLineTime : Array<LinearLayout>): String{
+        val obj = JSONObject()
+        val arrayObj = JSONArray()
+
+        for(item in listLineTime){
+            if(item.visibility == View.VISIBLE){
+                val time = item[0] as TextView
+                val amount = item[1] as TextView
+
+                arrayObj.put(JSONObject()
+                    .put("time", time.text.toString())
+                    .put("amount", amount.text.toString().substring(0, amount.text.toString().length - 5).toInt())
+                )
+            }
+        }
+
+        obj.put("dose", arrayObj)
+
+        return obj.toString()
+    }
+
     @SuppressLint("SimpleDateFormat")
     private fun initElements() = with(binding){
+        listLineTime = arrayOf(
+            linTime1,
+            linTime2,
+            linTime3,
+            linTime4,
+            linTime5
+        )
+
         btAddEditDone.setOnClickListener {
-            val medication = Medication(selectedItemImage, edEdit.text.toString(), 1, "")
-            val editIntent = Intent().apply {
-                putExtra("medication", medication)
+            var days = 0
+
+            if(regular != 1){
+                days = tvAmountDay.text.substring(0, tvAmountDay.text.length - 5).toInt()
             }
 
-            setResult(RESULT_OK, editIntent)
+            dbManager.insertToDB(
+                edEdit.text.toString(),
+                selectedItemImage,
+                formationDose(listLineTime),
+                tvDatePicker.text.toString(),
+                regular,
+                days,
+                everyDay,
+                "[]"
+            )
+
+            dbManager.closeDB()
             finish()
         }
 
@@ -65,17 +127,11 @@ class EditorActivity : AppCompatActivity() {
             TransitionManager.beginDelayedTransition(scrollView2, AutoTransition())
             layoutSchedule.visibility = View.VISIBLE
             btAddEditDone.visibility = View.VISIBLE
+
+            formationDose(listLineTime)
         }
 
-        listLineTime = arrayOf(
-            linTime1,
-            linTime2,
-            linTime3,
-            linTime4,
-            linTime5
-        )
-
-        tvDatePicker.text = SimpleDateFormat("dd.MM").format(System.currentTimeMillis())
+        tvDatePicker.text = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
 
         tvDatePicker.setOnClickListener {
             val cal = Calendar.getInstance()
@@ -87,7 +143,7 @@ class EditorActivity : AppCompatActivity() {
                 cal[Calendar.MONTH] = month + 1
                 cal[Calendar.DAY_OF_MONTH] = day_of_month
 
-                tvDatePicker.text = SimpleDateFormat("dd.MM").format(cal.time)},
+                tvDatePicker.text = SimpleDateFormat("yyyy-MM-dd").format(cal.time)},
                 cal[Calendar.YEAR],
                 cal[Calendar.MONTH],
                 cal[Calendar.DAY_OF_MONTH])
@@ -100,8 +156,14 @@ class EditorActivity : AppCompatActivity() {
 
         radioGroupLonger.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
-                R.id.rbRegular -> tvAmountDay.visibility = View.GONE
+                R.id.rbRegular -> {
+                    regular = 1
+
+                    tvAmountDay.visibility = View.GONE
+                }
                 R.id.rbAmountDays -> {
+                    regular = 0
+
                     val dialog = DaysAmountDialogFragment(layoutSchedule)
 
                     tvAmountDay.visibility = View.VISIBLE
@@ -113,8 +175,14 @@ class EditorActivity : AppCompatActivity() {
 
         radioGroupDay.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
-                R.id.rbEveryDay -> tvListDays.visibility = View.GONE
+                R.id.rbEveryDay -> {
+                    everyDay = 1
+
+                    tvListDays.visibility = View.GONE
+                }
                 R.id.rbCurrentDay -> {
+                    everyDay = 0
+
                     val dialog = WeekDialogFragment(layoutSchedule)
 
                     tvListDays.visibility = View.VISIBLE

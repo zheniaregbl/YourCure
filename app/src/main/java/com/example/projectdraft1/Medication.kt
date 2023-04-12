@@ -4,5 +4,5 @@ data class Medication(
     val imageId: Int,
     val title: String,
     val dose: Int,
-    val time: String,
-): java.io.Serializable
+    val time: String
+)
