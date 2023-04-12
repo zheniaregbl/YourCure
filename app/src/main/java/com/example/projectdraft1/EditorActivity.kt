@@ -2,14 +2,12 @@ package com.example.projectdraft1
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,6 +16,7 @@ import android.widget.TextView
 import androidx.core.view.get
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import com.example.projectdraft1.db.DBManager
+import com.google.android.material.shape.CornerFamily
 import kotlinx.android.synthetic.main.activity_editor.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -85,6 +84,14 @@ class EditorActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun initElements() = with(binding){
+        cardStart.shapeAppearanceModel = cardStart.shapeAppearanceModel
+            .toBuilder()
+            .setTopLeftCorner(CornerFamily.ROUNDED, 32f)
+            .setTopRightCorner(CornerFamily.ROUNDED, 32f)
+            .setBottomLeftCorner(CornerFamily.ROUNDED, 32f)
+            .setBottomRightCorner(CornerFamily.ROUNDED, 32f)
+            .build()
+
         listLineTime = arrayOf(
             linTime1,
             linTime2,
@@ -120,6 +127,21 @@ class EditorActivity : AppCompatActivity() {
             TransitionManager.beginDelayedTransition(scrollView2, AutoTransition())
             layoutChooseTime.visibility = View.VISIBLE
             btAddEditTime.visibility = View.VISIBLE
+            cardStart.shapeAppearanceModel = cardStart.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 32f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 32f)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+                .build()
+
+            cardTime.shapeAppearanceModel = cardStart.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, 32f)
+                .setBottomRightCorner(CornerFamily.ROUNDED, 32f)
+                .build()
         }
 
         btAddEditTime.setOnClickListener {
@@ -128,7 +150,29 @@ class EditorActivity : AppCompatActivity() {
             layoutSchedule.visibility = View.VISIBLE
             btAddEditDone.visibility = View.VISIBLE
 
-            formationDose(listLineTime)
+            cardStart.shapeAppearanceModel = cardStart.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 32f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 32f)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+                .build()
+
+            cardTime.shapeAppearanceModel = cardStart.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomRightCorner(CornerFamily.ROUNDED, 0f)
+                .build()
+
+            cardDays.shapeAppearanceModel = cardStart.shapeAppearanceModel
+                .toBuilder()
+                .setTopLeftCorner(CornerFamily.ROUNDED, 0f)
+                .setTopRightCorner(CornerFamily.ROUNDED, 0f)
+                .setBottomLeftCorner(CornerFamily.ROUNDED, 32f)
+                .setBottomRightCorner(CornerFamily.ROUNDED, 32f)
+                .build()
         }
 
         tvDatePicker.text = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
