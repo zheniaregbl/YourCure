@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
+//класс для создания и обновления базы данных
 class DBHelper(context: Context) : SQLiteOpenHelper(
     context,
     DBNameClass.DATABASE_NAME,

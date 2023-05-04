@@ -8,6 +8,7 @@ import android.provider.BaseColumns
 import com.example.projectdraft1.MedicationDose
 import org.json.JSONObject
 
+//класс для взаимодействия с записями внутри таблиц базы данных
 class DBManager(context: Context) {
     private val dbHelper = DBHelper(context)
     var db: SQLiteDatabase? = null
