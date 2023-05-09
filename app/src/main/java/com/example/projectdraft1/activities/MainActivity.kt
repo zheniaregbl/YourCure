@@ -1,10 +1,14 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
+import com.example.projectdraft1.fragments.FragmentMeasurement
+import com.example.projectdraft1.fragments.FragmentSettings
+import com.example.projectdraft1.fragments.FragmentToday
+import com.example.projectdraft1.R
 import com.example.projectdraft1.databinding.ActivityMainBinding
+import com.example.projectdraft1.fragments.FragmentMedicine
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {

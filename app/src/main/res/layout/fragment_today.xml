@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentToday">
+    tools:context=".fragments.FragmentToday">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
@@ -19,7 +19,6 @@
         android:layout_gravity="bottom|right"
         android:clickable="true"
         android:src="@drawable/ic_add_plus"
-        android:tint="@null"
         android:translationX="-30dp"
         android:translationY="-50dp"
         app:backgroundTint="@color/blue"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/grey_background_layout"
-    tools:context=".EditorActivity">
+    tools:context=".activities.EditorActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -435,7 +435,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
-                        android:text="11 дней"
+                        android:text="1 дней"
                         android:textColor="@color/blue_grey"
                         android:textSize="18sp"
                         android:visibility="gone"

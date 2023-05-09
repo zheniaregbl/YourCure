@@ -1,4 +1,4 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projectdraft1.MedicationAdapter
+import com.example.projectdraft1.activities.EditorActivity
 import com.example.projectdraft1.databinding.FragmentTodayBinding
 import com.example.projectdraft1.db.DBManager
 

@@ -1,4 +1,4 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.activities
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -14,6 +14,12 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.get
+import com.example.projectdraft1.DaysAmountDialogFragment
+import com.example.projectdraft1.MedicationArrayAdapter
+import com.example.projectdraft1.Medications
+import com.example.projectdraft1.R
+import com.example.projectdraft1.TimeDialogFragment
+import com.example.projectdraft1.WeekDialogFragment
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import com.example.projectdraft1.db.DBManager
 import com.google.android.material.shape.CornerFamily
@@ -236,6 +242,12 @@ class EditorActivity : AppCompatActivity() {
             }
         }
 
+        tvAmountDay.setOnClickListener {
+            val dialog = DaysAmountDialogFragment(layoutSchedule)
+
+            dialog.show(supportFragmentManager, "daysAmountDialog")
+        }
+
         setupMedicationSpinner()
         setupDaysAmountSpinner()
         setOnClickLineTime(listLineTime)
@@ -265,7 +277,7 @@ class EditorActivity : AppCompatActivity() {
     private fun setupDaysAmountSpinner() = with(binding){
         val adapter = ArrayAdapter.createFromResource(
             this@EditorActivity,
-        R.array.amount_days_list,
+            R.array.amount_days_list,
         android.R.layout.simple_spinner_item
         )
 

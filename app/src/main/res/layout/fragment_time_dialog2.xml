@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_rounded"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="300dp"
+        android:layout_height="385dp"
+        app:cardCornerRadius="11dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="27dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="Когда вам необходимо\nпринять эту дозу?"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvTimeSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="94dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="12:00"
+            android:textColor="@color/blue_grey"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="164dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="Сколько необходимо\nпринять?"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvDoseSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="250dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="1"
+            android:textColor="@color/blue_grey"
+            android:textSize="24sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="245dp"
+            android:layout_marginEnd="52dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_add_plus"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="25dp"
+            app:tint="@color/blue" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="245dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_minus"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="10dp"
+            app:tint="@color/blue" />
+
+        <Button
+            android:id="@+id/btTimeDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="320dp"
+            android:backgroundTint="@color/blue"
+            android:text="Готово"
+            app:cornerRadius="11dp" />
+
+        <Button
+            android:id="@+id/btTimeCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="320dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@color/red"
+            android:text="Отмена"
+            app:cornerRadius="11dp" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
