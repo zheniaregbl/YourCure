@@ -1,4 +1,4 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.dialogs_fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.get
+import com.example.projectdraft1.R
 import kotlinx.android.synthetic.main.fragment_day_week_dialog.*
 import kotlinx.android.synthetic.main.fragment_day_week_dialog.view.*
 

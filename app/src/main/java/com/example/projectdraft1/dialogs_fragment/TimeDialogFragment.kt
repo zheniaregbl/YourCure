@@ -1,11 +1,10 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.dialogs_fragment
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.get
 import androidx.fragment.app.DialogFragment
+import com.example.projectdraft1.Counter
+import com.example.projectdraft1.R
 import kotlinx.android.synthetic.main.fragment_time_dialog2.view.*
 
 class TimeDialogFragment(lineTime: LinearLayout) : DialogFragment() {

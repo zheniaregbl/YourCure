@@ -14,12 +14,12 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.get
-import com.example.projectdraft1.DaysAmountDialogFragment
+import com.example.projectdraft1.dialogs_fragment.DaysAmountDialogFragment
 import com.example.projectdraft1.MedicationArrayAdapter
 import com.example.projectdraft1.Medications
 import com.example.projectdraft1.R
-import com.example.projectdraft1.TimeDialogFragment
-import com.example.projectdraft1.WeekDialogFragment
+import com.example.projectdraft1.dialogs_fragment.TimeDialogFragment
+import com.example.projectdraft1.dialogs_fragment.WeekDialogFragment
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import com.example.projectdraft1.db.DBManager
 import com.google.android.material.shape.CornerFamily
