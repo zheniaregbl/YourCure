@@ -3,7 +3,6 @@ package com.example.projectdraft1
 data class SpinnerMedication(val image: Int, val name: String)
 
 object Medications{
-
     private val images = intArrayOf(
         R.drawable.pill_1,
         R.drawable.pill_2,
@@ -15,13 +14,13 @@ object Medications{
     )
 
     private val medications = arrayOf(
-        "Успокаивающее",
-        "Таблетки",
-        "Капсулы",
-        "Мелкие таблетки",
-        "Капли",
-        "Сироп",
+        "Таблетка",
+        "Капсула",
         "Укол",
+        "Капли",
+        "Мазь/крем/гель",
+        "Спрей",
+        "Сироп"
     )
 
     var list: ArrayList<SpinnerMedication>? = null

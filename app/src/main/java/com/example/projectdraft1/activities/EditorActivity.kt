@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.get
 import com.example.projectdraft1.dialogs_fragment.DaysAmountDialogFragment
 import com.example.projectdraft1.MedicationArrayAdapter
@@ -42,10 +44,12 @@ class EditorActivity : AppCompatActivity() {
     )
     private var listLineTime = emptyArray<LinearLayout>()
     private val dbManager = DBManager(this)
-    private var regular = 0
-    private var everyDay = 0
+    private var amountDays = false
+    private var days = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportActionBar!!.title = resources.getString(R.string.editor_medicine)
+
         super.onCreate(savedInstanceState)
         binding = ActivityEditorBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -107,25 +111,30 @@ class EditorActivity : AppCompatActivity() {
         )
 
         btAddEditDone.setOnClickListener {
-            var days = 0
-
-            if(regular != 1){
-                days = tvAmountDay.text.substring(0, tvAmountDay.text.length - 5).toInt()
+            if (amountDays) {
+                days = tvAmountDay.text.toString()
+                    .substring(0, tvAmountDay.text.toString().length - 5)
+                    .toInt()
             }
 
-            dbManager.insertToDB(
-                edEdit.text.toString(),
-                selectedItemImage,
-                formationDose(listLineTime),
-                tvDatePicker.text.toString(),
-                regular,
-                days,
-                everyDay,
-                "[]"
-            )
+            if (edEdit.text.isNotEmpty()) {
+                dbManager.insertToDB(
+                    edEdit.text.toString(),
+                    selectedItemImage,
+                    formationDose(listLineTime),
+                    tvDatePicker.text.toString(),
+                    days
+                )
 
-            dbManager.closeDB()
-            finish()
+                dbManager.closeDB()
+                finish()
+            } else {
+                Toast.makeText(
+                    this@EditorActivity,
+                    "Вы не заполнили название лекарства",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
         btAddEditName.setOnClickListener {
@@ -207,12 +216,12 @@ class EditorActivity : AppCompatActivity() {
         radioGroupLonger.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.rbRegular -> {
-                    regular = 1
+                    amountDays = false
 
                     tvAmountDay.visibility = View.GONE
                 }
                 R.id.rbAmountDays -> {
-                    regular = 0
+                    amountDays = true
 
                     val dialog = DaysAmountDialogFragment(layoutSchedule)
 
@@ -226,13 +235,9 @@ class EditorActivity : AppCompatActivity() {
         radioGroupDay.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
                 R.id.rbEveryDay -> {
-                    everyDay = 1
-
                     tvListDays.visibility = View.GONE
                 }
                 R.id.rbCurrentDay -> {
-                    everyDay = 0
-
                     val dialog = WeekDialogFragment(layoutSchedule)
 
                     tvListDays.visibility = View.VISIBLE

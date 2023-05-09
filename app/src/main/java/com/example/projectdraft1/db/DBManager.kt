@@ -22,21 +22,15 @@ class DBManager(context: Context) {
         imageID: Int,
         dose: String,
         dateStart: String,
-        regular: Int,
-        days: Int,
-        everyDay: Int,
-        daysWeek: String
+        days: Int
     ){
         val values = ContentValues().apply {
             put(DBNameClass.COLUMN_NAME_TITLE, title)
             put(DBNameClass.COLUMN_NAME_IMAGE_ID, imageID)
             put(DBNameClass.COLUMN_NAME_DOSE, dose)
             put(DBNameClass.COLUMN_NAME_DATE_START, dateStart)
-            put(DBNameClass.COLUMN_NAME_REGULAR, regular)
             put(DBNameClass.COLUMN_NAME_DAYS, days)
             put(DBNameClass.COLUMN_NAME_ACCEPT_DAYS, 0)
-            put(DBNameClass.COLUMN_NAME_EVERY_DAY, everyDay)
-            put(DBNameClass.COLUMN_NAME_DAY_WEEK, daysWeek)
             put(DBNameClass.COLUMN_NAME_END, 0)
         }
 
