@@ -28,12 +28,15 @@
             android:textColor="@color/black"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tvAmountDaysSelect"
+        <EditText
+            android:id="@+id/edDaysSelect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="103dp"
+            android:layout_marginTop="100dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:inputType="number|numberSigned"
             android:text="1"
             android:textColor="@color/blue_grey"
             android:textSize="24sp" />

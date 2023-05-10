@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.view.get
 import androidx.fragment.app.DialogFragment
 import com.example.projectdraft1.Counter
+import com.example.projectdraft1.InputFilterMinMax
 import com.example.projectdraft1.R
 import kotlinx.android.synthetic.main.fragment_days_dialog2.view.*
 
@@ -30,14 +31,22 @@ class DaysAmountDialogFragment(layout : LinearLayout) : DialogFragment() {
     ): View {
         val rootView : View = inflater.inflate(R.layout.fragment_days_dialog2, container, false)
 
-        rootView.tvAmountDaysSelect.text = tvAmount.text.toString().substring(0, tvAmount.text.toString().length - 5)
+        rootView.edDaysSelect.setText(
+            tvAmount.text.toString().substring(0, tvAmount.text.toString().length - 5)
+        )
+
+        rootView.edDaysSelect.filters = arrayOf(InputFilterMinMax(1, 365))
 
         rootView.btDaysCancel.setOnClickListener {
             dismiss()
         }
 
         rootView.btDaysDone.setOnClickListener {
-            tvAmount.text = rootView.tvAmountDaysSelect.text.toString() + " дней"
+            if (rootView.edDaysSelect.text.toString().isEmpty()) {
+                tvAmount.text = "1 дней"
+            } else {
+                tvAmount.text = rootView.edDaysSelect.text.toString() + " дней"
+            }
 
             dismiss()
         }
@@ -47,7 +56,7 @@ class DaysAmountDialogFragment(layout : LinearLayout) : DialogFragment() {
                 counter--
             }
 
-            rootView.tvAmountDaysSelect.text = counter.toString()
+            rootView.edDaysSelect.setText(counter.toString())
         }
 
         rootView.fabPlusDay.setOnClickListener {
@@ -55,7 +64,7 @@ class DaysAmountDialogFragment(layout : LinearLayout) : DialogFragment() {
                 counter++
             }
 
-            rootView.tvAmountDaysSelect.text = counter.toString()
+            rootView.edDaysSelect.setText(counter.toString())
         }
 
         return rootView
