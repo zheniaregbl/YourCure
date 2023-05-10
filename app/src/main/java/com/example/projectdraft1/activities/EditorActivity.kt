@@ -239,6 +239,7 @@ class EditorActivity : AppCompatActivity() {
         }
 
         setupMedicationSpinner()
+        setupMedicationDoseSpinner(R.array.dose_string_array)
         setupDaysAmountSpinner()
         setOnClickLineTime(listLineTime)
     }
@@ -256,6 +257,35 @@ class EditorActivity : AppCompatActivity() {
                 id: Long
             ) {
                 selectedItemImage = listImage[position]
+                when(position){
+                    0 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array)
+                    }
+
+                    1 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array2)
+                    }
+
+                    2 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array3)
+                    }
+
+                    3 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array4)
+                    }
+
+                    4 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array5)
+                    }
+
+                    5 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array6)
+                    }
+
+                    6 -> {
+                        setupMedicationDoseSpinner(R.array.dose_string_array5)
+                    }
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -264,11 +294,23 @@ class EditorActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupMedicationDoseSpinner(resourceStringArray: Int) = with(binding){
+        val adapter = ArrayAdapter.createFromResource(
+            this@EditorActivity,
+            resourceStringArray,
+            android.R.layout.simple_spinner_item
+        )
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinnerMedicationDose.adapter = adapter
+    }
+
     private fun setupDaysAmountSpinner() = with(binding){
         val adapter = ArrayAdapter.createFromResource(
             this@EditorActivity,
             R.array.amount_days_list,
-        android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

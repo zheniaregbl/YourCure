@@ -8,9 +8,35 @@
         <item>5 раз в день</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="today">Сегодня</string>
     <string name="measurement">Измерения</string>
     <string name="medicine">Лекарства</string>
     <string name="settings">Настройки</string>
     <string name="editor_medicine">Создание лекарства</string>
+
+    <string-array name="dose_string_array">
+        <item>таблетка(-и/-ок)</item>
+    </string-array>
+
+    <string-array name="dose_string_array2">
+        <item>капсул(-а/-ы)</item>
+    </string-array>
+
+    <string-array name="dose_string_array3">
+        <item>шприц(-а/-ов)</item>
+    </string-array>
+
+    <string-array name="dose_string_array4">
+        <item>капля(-и/-ель)</item>
+    </string-array>
+
+    <string-array name="dose_string_array5">
+        <item>стол. ложка(-и/-ек)</item>
+        <item>чай. ложка(-и/-ек)</item>
+    </string-array>
+
+    <string-array name="dose_string_array6">
+        <item>спрей(-я/-ев)</item>
+    </string-array>
 </resources>
