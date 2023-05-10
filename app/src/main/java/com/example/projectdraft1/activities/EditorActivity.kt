@@ -232,21 +232,6 @@ class EditorActivity : AppCompatActivity() {
             }
         }
 
-        radioGroupDay.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                R.id.rbEveryDay -> {
-                    tvListDays.visibility = View.GONE
-                }
-                R.id.rbCurrentDay -> {
-                    val dialog = WeekDialogFragment(layoutSchedule)
-
-                    tvListDays.visibility = View.VISIBLE
-
-                    dialog.show(supportFragmentManager, "daysOfWeekDialog")
-                }
-            }
-        }
-
         tvAmountDay.setOnClickListener {
             val dialog = DaysAmountDialogFragment(layoutSchedule)
 

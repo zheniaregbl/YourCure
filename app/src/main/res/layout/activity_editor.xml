@@ -435,70 +435,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
+                        android:layout_marginBottom="20dp"
                         android:text="1 дней"
                         android:textColor="@color/blue_grey"
                         android:textSize="18sp"
                         android:visibility="gone"
                         tools:visibility="visible" />
 
-                    <Button
-                        android:id="@+id/brKostil"
-                        android:layout_width="match_parent"
-                        android:layout_height="1.5dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:backgroundTint="@color/grey"
-                        app:cornerRadius="40dp" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="Дни приема"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
                     <RadioGroup
                         android:id="@+id/radioGroupDay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp">
-
-
-                        <RadioButton
-                            android:id="@+id/rbEveryDay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="@color/blue_grey"
-                            android:text="Каждый день"
-                            android:textSize="16sp" />
-
-                        <RadioButton
-                            android:id="@+id/rbCurrentDay"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:buttonTint="@color/blue_grey"
-                            android:text="По определенным дням"
-                            android:textSize="16sp" />
-
-                    </RadioGroup>
-
-                    <TextView
-                        android:id="@+id/tvListDays"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="пн, вт"
-                        android:textColor="@color/blue_grey"
-                        android:textSize="18sp"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                        android:layout_marginStart="20dp"/>
 
                 </LinearLayout>
 
