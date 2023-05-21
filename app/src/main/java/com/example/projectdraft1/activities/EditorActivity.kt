@@ -25,7 +25,6 @@ import com.example.projectdraft1.dialogs_fragment.WeekDialogFragment
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import com.example.projectdraft1.db.DBManager
 import com.google.android.material.shape.CornerFamily
-import kotlinx.android.synthetic.main.activity_editor.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
@@ -71,7 +70,7 @@ class EditorActivity : AppCompatActivity() {
         dbManager.closeDB()
     }
 
-    private fun formationDose(listLineTime : Array<LinearLayout>): String{
+    private fun formationDose(listLineTime : Array<LinearLayout>, stringDose : String): String{ //!!!
         val obj = JSONObject()
         val arrayObj = JSONArray()
 
@@ -82,7 +81,8 @@ class EditorActivity : AppCompatActivity() {
 
                 arrayObj.put(JSONObject()
                     .put("time", time.text.toString())
-                    .put("amount", amount.text.toString().substring(0, amount.text.toString().length - 5).toInt())
+                    .put("amount", amount.text.toString().substring(8, amount.text.toString().length).toInt())
+                    .put("stringDose", stringDose)
                 )
             }
         }
@@ -118,15 +118,16 @@ class EditorActivity : AppCompatActivity() {
             }
 
             if (edEdit.text.isNotEmpty()) {
-                dbManager.insertToDB(
+                dbManager.insertMedication(
                     edEdit.text.toString(),
                     selectedItemImage,
-                    formationDose(listLineTime),
+                    formationDose(listLineTime, spinnerMedicationDose.selectedItem.toString()),
                     tvDatePicker.text.toString(),
                     days
                 )
 
                 dbManager.closeDB()
+
                 finish()
             } else {
                 Toast.makeText(

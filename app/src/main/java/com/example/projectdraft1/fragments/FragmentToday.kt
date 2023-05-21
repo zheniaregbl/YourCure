@@ -1,5 +1,6 @@
 package com.example.projectdraft1.fragments
 
+import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,16 +9,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectdraft1.MedicationAdapter
+import com.example.projectdraft1.MedicationDose
+import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.activities.EditorActivity
 import com.example.projectdraft1.databinding.FragmentTodayBinding
 import com.example.projectdraft1.db.DBManager
+import com.example.projectdraft1.dialogs_fragment.AcceptDoseDialogFragment
 
-class FragmentToday : Fragment() {
+class FragmentToday : Fragment(), MedicationAdapter.Listener {
     lateinit var binding: FragmentTodayBinding
-    private val adapter = MedicationAdapter()
     lateinit var dbManager: DBManager
+    private val adapter = MedicationAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +33,9 @@ class FragmentToday : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        dbManager = DBManager(context)
+    override fun onAttach(_context: Context) {
+        super.onAttach(_context)
+        dbManager = DBManager(_context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,7 +49,6 @@ class FragmentToday : Fragment() {
 
         dbManager.openDB()
         fillAdapter()
-        Log.d("tag123", "onResume")
     }
 
     override fun onDestroy() {
@@ -64,11 +68,17 @@ class FragmentToday : Fragment() {
     }
 
     private fun fillAdapter(){
-        adapter.setListAdapter(dbManager.readDataDB())
+        adapter.setListAdapter(dbManager.readActiveDose())
     }
 
     companion object {
         @JvmStatic
         fun newInstance() = FragmentToday()
+    }
+
+    override fun onClick(medicationDose: MedicationDose) {
+        val dialog = AcceptDoseDialogFragment(dbManager, medicationDose)
+
+        dialog.show(childFragmentManager, "acceptDoseDialog")
     }
 }

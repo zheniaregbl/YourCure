@@ -167,7 +167,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:text="1 штук"
+                                android:text="Принять 1"
                                 android:textColor="@color/blue_grey"
                                 android:textSize="20sp" />
 
@@ -182,7 +182,8 @@
                             android:layout_marginEnd="20dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            tools:visibility="visible">
 
                             <TextView
                                 android:id="@+id/tvTime2"
@@ -204,7 +205,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:text="1 штук"
+                                android:text="Принять 1"
                                 android:textColor="@color/blue_grey"
                                 android:textSize="20sp" />
 
@@ -219,7 +220,8 @@
                             android:layout_marginEnd="20dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            tools:visibility="visible">
 
                             <TextView
                                 android:id="@+id/tvTime3"
@@ -241,7 +243,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:text="1 штук"
+                                android:text="Принять 1"
                                 android:textColor="@color/blue_grey"
                                 android:textSize="20sp" />
 
@@ -256,7 +258,8 @@
                             android:layout_marginEnd="20dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            tools:visibility="visible">
 
                             <TextView
                                 android:id="@+id/tvTime4"
@@ -278,7 +281,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:text="1 штук"
+                                android:text="Принять 1"
                                 android:textColor="@color/blue_grey"
                                 android:textSize="20sp" />
 
@@ -293,7 +296,8 @@
                             android:layout_marginEnd="20dp"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal"
-                            android:visibility="gone">
+                            android:visibility="gone"
+                            tools:visibility="visible">
 
                             <TextView
                                 android:id="@+id/tvTime5"
@@ -315,7 +319,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:text="1 штук"
+                                android:text="Принять 1"
                                 android:textColor="@color/blue_grey"
                                 android:textSize="20sp" />
 

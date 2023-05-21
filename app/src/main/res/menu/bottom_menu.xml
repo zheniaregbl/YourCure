@@ -7,8 +7,8 @@
         android:orderInCategory="1"/>
     <item
         android:id="@+id/statistics"
-        android:icon="@drawable/ic_statistics"
-        android:title="Статистика"
+        android:icon="@drawable/ic_measurement"
+        android:title="Измерения"
         android:orderInCategory="2"/>
     <item
         android:id="@+id/pill"

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdraft1.databinding.MedicationItem2Binding
 
-class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
+class MedicationAdapter(val listener: Listener): RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
     private var medicationDoseList = ArrayList<MedicationDose>()
 
     class MedicationHolder(item: View): RecyclerView.ViewHolder(item) {
@@ -15,12 +15,16 @@ class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder
         var itemDose: MedicationDose? = null
 
         @SuppressLint("SetTextI18n")
-        fun bind(dose: MedicationDose) = with(binding){
+        fun bind(dose: MedicationDose, listener: Listener) = with(binding){
             imagePill.setImageResource(dose.imageId)
             tvNamePill.text = dose.title
-            tvDosePill.text = "${dose.amount} таблетка(-и/-ок)"
+            tvDosePill.text = "${dose.amount} ${dose.stringDose}"
             tvDoseTime.text = dose.time
             itemDose = dose
+
+            itemView.setOnClickListener {
+                listener.onClick(itemDose!!)
+            }
         }
     }
 
@@ -33,7 +37,7 @@ class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder
     }
 
     override fun onBindViewHolder(holder: MedicationHolder, position: Int) {
-        holder.bind(medicationDoseList[position])
+        holder.bind(medicationDoseList[position], listener)
     }
 
     override fun getItemCount(): Int {
@@ -54,5 +58,9 @@ class MedicationAdapter: RecyclerView.Adapter<MedicationAdapter.MedicationHolder
     fun setListAdapter(list: ArrayList<MedicationDose>){
         medicationDoseList = list
         notifyDataSetChanged()
+    }
+
+    interface Listener{
+        fun onClick(medicationDose: MedicationDose)
     }
 }

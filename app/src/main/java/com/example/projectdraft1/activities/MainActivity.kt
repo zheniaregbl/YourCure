@@ -1,13 +1,22 @@
 package com.example.projectdraft1.activities
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.media.AudioAttributes
+import android.media.RingtoneManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.projectdraft1.fragments.FragmentMeasurement
 import com.example.projectdraft1.fragments.FragmentSettings
 import com.example.projectdraft1.fragments.FragmentToday
 import com.example.projectdraft1.R
+import com.example.projectdraft1.ScheduleAlarm
+import com.example.projectdraft1.channelID
 import com.example.projectdraft1.databinding.ActivityMainBinding
 import com.example.projectdraft1.fragments.FragmentMedicine
 
@@ -20,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+        scheduleAlarm.setUniqueAlarm()
 
         supportActionBar!!.title = resources.getString(R.string.today)
 
@@ -47,11 +61,43 @@ class MainActivity : AppCompatActivity() {
         }
 
         openFragment(FragmentToday())
+        createNotificationChannel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+        scheduleAlarm.setUniqueAlarm()
     }
 
     private fun openFragment(fragment: Fragment){
         supportFragmentManager
             .beginTransaction().replace(R.id.placeHolder, fragment)
             .commit()
+    }
+
+    @SuppressLint("NewApi")
+    private fun createNotificationChannel() {
+        val name = "Notification Channel"
+        val desc = "Description of the Channel"
+        val importance = NotificationManager.IMPORTANCE_HIGH
+
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+            .build()
+
+        val channel = NotificationChannel(channelID, name, importance)
+
+        channel.description = desc
+        channel.setSound(
+            RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
+            audioAttributes
+        )
+
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

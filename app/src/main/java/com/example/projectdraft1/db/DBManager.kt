@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import com.example.projectdraft1.Medication
 import com.example.projectdraft1.MedicationDose
 import org.json.JSONObject
 
@@ -17,7 +18,7 @@ class DBManager(context: Context) {
         db = dbHelper.writableDatabase
     }
 
-    fun insertToDB(
+    fun insertMedication(
         title: String,
         imageID: Int,
         dose: String,
@@ -30,16 +31,37 @@ class DBManager(context: Context) {
             put(DBNameClass.COLUMN_NAME_DOSE, dose)
             put(DBNameClass.COLUMN_NAME_DATE_START, dateStart)
             put(DBNameClass.COLUMN_NAME_DAYS, days)
-            put(DBNameClass.COLUMN_NAME_ACCEPT_DAYS, 0)
+            put(DBNameClass.COLUMN_NAME_ACCEPT_DOSE, 0)
             put(DBNameClass.COLUMN_NAME_END, 0)
         }
 
         db?.insert(DBNameClass.TABLE_NAME, null, values)
     }
 
+    fun insertDose(
+        medicationId: Int,
+        title: String,
+        imageId: Int,
+        time: String,
+        amount: Int,
+        stringDose: String
+    ){
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_MEDICATION_ID, medicationId)
+            put(DBNameClass.COLUMN_NAME_TITLE_DOSE, title)
+            put(DBNameClass.COLUMN_NAME_IMAGE_ID_DOSE, imageId)
+            put(DBNameClass.COLUMN_NAME_TIME, time)
+            put(DBNameClass.COLUMN_NAME_AMOUNT, amount)
+            put(DBNameClass.COLUMN_NAME_STRING_DOSE, stringDose)
+            put(DBNameClass.COLUMN_NAME_DOSE_DONE, 0)
+        }
+
+        db?.insert(DBNameClass.TABLE_NAME_DOSE, null, values)
+    }
+
     @SuppressLint("Range")
-    fun readDataDB() : ArrayList<MedicationDose>{
-        val dataList = ArrayList<MedicationDose>()
+    fun readActiveMedication() : ArrayList<Medication>{
+        val dataList = ArrayList<Medication>()
 
         val cursor = db?.query(
             DBNameClass.TABLE_NAME,
@@ -51,40 +73,142 @@ class DBManager(context: Context) {
             null
         )
 
-
         while(cursor?.moveToNext()!!){
+            val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+            val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
             val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
-            val obj = JSONObject(stringJson)
-            val doseArray = obj.getJSONArray("dose")
+            val countDose = JSONObject(stringJson).getJSONArray("dose").length()
 
-            if(doseArray.length() > 1){
-                for (i in 0 until doseArray.length()){
-                    val dose = doseArray.getJSONObject(i)
-
-                    val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
-                    val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
-                    val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
-                    val time = dose.getString("time")
-                    val amount = dose.getInt("amount")
-
-                    dataList.add(MedicationDose(id, title, imageID, time, amount))
-                }
-            } else {
-                val dose = doseArray.getJSONObject(0)
-
+            if ((days == 0) or (acceptDose < days * countDose)){
                 val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
                 val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
                 val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
-                val time = dose.getString("time")
-                val amount = dose.getInt("amount")
 
-                dataList.add(MedicationDose(id, title, imageID, time, amount))
+                dataList.add(Medication(id, imageID, title, stringJson, days, acceptDose))
             }
         }
 
         cursor.close()
 
         return dataList
+    }
+
+    @SuppressLint("Range")
+    fun readAllMedication() : ArrayList<Medication>{
+        val dataList = ArrayList<Medication>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!){
+            val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+            val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
+            val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
+            val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+            val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
+            val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
+
+            dataList.add(Medication(id, imageID, title, stringJson, days, acceptDose))
+        }
+
+        cursor.close()
+
+        return dataList
+    }
+
+    @SuppressLint("Range")
+    fun readDose() : ArrayList<MedicationDose> {
+        val dataList = ArrayList<MedicationDose>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME_DOSE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!){
+            val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+            val medicationId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_MEDICATION_ID))
+            val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE_DOSE))
+            val imageId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID_DOSE))
+            val time = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TIME))
+            val amount = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_AMOUNT))
+            val stringDose = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_STRING_DOSE))
+
+            dataList.add(MedicationDose(id, medicationId, title, imageId, time, amount, stringDose))
+        }
+
+        return dataList
+    }
+
+    @SuppressLint("Range")
+    fun readActiveDose() : ArrayList<MedicationDose> {
+        val dataList = ArrayList<MedicationDose>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME_DOSE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!){
+            val done = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE_DONE))
+
+            if (done == 0){
+                val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+                val medicationId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_MEDICATION_ID))
+                val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE_DOSE))
+                val imageId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID_DOSE))
+                val time = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TIME))
+                val amount = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_AMOUNT))
+                val stringDose = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_STRING_DOSE))
+
+                dataList.add(MedicationDose(id, medicationId, title, imageId, time, amount, stringDose))
+            }
+        }
+
+        return dataList
+    }
+
+    fun deleteDose(id: String){
+        val selection = BaseColumns._ID + "=$id"
+
+        db?.delete(DBNameClass.TABLE_NAME_DOSE, selection, null)
+    }
+
+    fun deleteAllDose() {
+        db?.delete(DBNameClass.TABLE_NAME_DOSE, null, null)
+    }
+
+    fun updateDose(dose: MedicationDose){
+        val selection = BaseColumns._ID + "=${dose.doseId}"
+
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_MEDICATION_ID, dose.medicationId)
+            put(DBNameClass.COLUMN_NAME_TITLE_DOSE, dose.title)
+            put(DBNameClass.COLUMN_NAME_IMAGE_ID_DOSE, dose.imageId)
+            put(DBNameClass.COLUMN_NAME_TIME, dose.time)
+            put(DBNameClass.COLUMN_NAME_AMOUNT, dose.amount)
+            put(DBNameClass.COLUMN_NAME_STRING_DOSE, dose.stringDose)
+            put(DBNameClass.COLUMN_NAME_DOSE_DONE, 1)
+        }
+
+        db?.update(DBNameClass.TABLE_NAME_DOSE, values, selection, null)
     }
 
     fun closeDB(){

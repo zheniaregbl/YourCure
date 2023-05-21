@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_time_dialog2.view.*
 class TimeDialogFragment(lineTime: LinearLayout) : DialogFragment() {
     private val tvTime: TextView = lineTime[0] as TextView
     private val tvAmount: TextView = lineTime[1] as TextView
-    private var counter = Counter(tvAmount.text.toString().substring(0, tvAmount.text.toString().length - 5).toInt(), 10, 1)
+    private var counter = Counter(tvAmount.text.toString().substring(8, tvAmount.text.toString().length).toInt(), 10, 1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class TimeDialogFragment(lineTime: LinearLayout) : DialogFragment() {
         val rootView : View = inflater.inflate(R.layout.fragment_time_dialog2, container, false)
 
         rootView.tvTimeSelect.text = tvTime.text
-        rootView.tvDoseSelect.text = tvAmount.text.toString().substring(0, tvAmount.text.toString().length - 5)
+        rootView.tvDoseSelect.text = tvAmount.text.toString().substring(8, tvAmount.text.toString().length)
 
         rootView.btTimeCancel.setOnClickListener {
             dismiss()
@@ -43,7 +43,7 @@ class TimeDialogFragment(lineTime: LinearLayout) : DialogFragment() {
 
         rootView.btTimeDone.setOnClickListener {
             tvTime.text = rootView.tvTimeSelect.text
-            tvAmount.text = rootView.tvDoseSelect.text.toString() + " штук"
+            tvAmount.text = "Принять " + rootView.tvDoseSelect.text.toString()
 
             dismiss()
         }
