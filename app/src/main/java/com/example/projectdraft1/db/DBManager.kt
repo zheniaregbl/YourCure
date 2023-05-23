@@ -54,6 +54,7 @@ class DBManager(context: Context) {
             put(DBNameClass.COLUMN_NAME_AMOUNT, amount)
             put(DBNameClass.COLUMN_NAME_STRING_DOSE, stringDose)
             put(DBNameClass.COLUMN_NAME_DOSE_DONE, 0)
+            put(DBNameClass.COLUMN_NAME_DOSE_NOTIFY, 0)
         }
 
         db?.insert(DBNameClass.TABLE_NAME_DOSE, null, values)
@@ -123,7 +124,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "Recycle")
     fun readDose() : ArrayList<MedicationDose> {
         val dataList = ArrayList<MedicationDose>()
 
@@ -152,7 +153,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "Recycle")
     fun readActiveDose() : ArrayList<MedicationDose> {
         val dataList = ArrayList<MedicationDose>()
 
@@ -185,6 +186,39 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    @SuppressLint("Recycle", "Range")
+    fun readNoNotifyDose() : ArrayList<MedicationDose> {
+        val dataList = ArrayList<MedicationDose>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME_DOSE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!) {
+            val notify = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE_NOTIFY))
+
+            if (notify == 0) {
+                val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+                val medicationId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_MEDICATION_ID))
+                val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE_DOSE))
+                val imageId = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID_DOSE))
+                val time = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TIME))
+                val amount = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_AMOUNT))
+                val stringDose = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_STRING_DOSE))
+
+                dataList.add(MedicationDose(id, medicationId, title, imageId, time, amount, stringDose))
+            }
+        }
+
+        return dataList
+    }
+
     fun deleteDose(id: String){
         val selection = BaseColumns._ID + "=$id"
 
@@ -195,7 +229,7 @@ class DBManager(context: Context) {
         db?.delete(DBNameClass.TABLE_NAME_DOSE, null, null)
     }
 
-    fun updateDose(dose: MedicationDose){
+    fun updateDoneDose(dose: MedicationDose) {
         val selection = BaseColumns._ID + "=${dose.doseId}"
 
         val values = ContentValues().apply {
@@ -206,6 +240,16 @@ class DBManager(context: Context) {
             put(DBNameClass.COLUMN_NAME_AMOUNT, dose.amount)
             put(DBNameClass.COLUMN_NAME_STRING_DOSE, dose.stringDose)
             put(DBNameClass.COLUMN_NAME_DOSE_DONE, 1)
+        }
+
+        db?.update(DBNameClass.TABLE_NAME_DOSE, values, selection, null)
+    }
+
+    fun updateNotifyDose(id: String){
+        val selection = BaseColumns._ID + "=${id}"
+
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_DOSE_NOTIFY, 1)
         }
 
         db?.update(DBNameClass.TABLE_NAME_DOSE, values, selection, null)

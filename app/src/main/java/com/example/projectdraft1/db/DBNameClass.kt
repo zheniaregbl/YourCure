@@ -21,8 +21,9 @@ object DBNameClass : BaseColumns {
     const val COLUMN_NAME_AMOUNT = "amount"
     const val COLUMN_NAME_STRING_DOSE = "string_dose"
     const val COLUMN_NAME_DOSE_DONE = "done"
+    const val COLUMN_NAME_DOSE_NOTIFY = "notify"
 
-    const val DATABASE_VERSION = 5
+    const val DATABASE_VERSION = 6
     const val DATABASE_NAME = "MyDB.db"
 
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME " +
@@ -34,7 +35,7 @@ object DBNameClass : BaseColumns {
             "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_MEDICATION_ID INTEGER, " +
             "$COLUMN_NAME_TITLE_DOSE TEXT, $COLUMN_NAME_IMAGE_ID_DOSE INTEGER, " +
             "$COLUMN_NAME_TIME TEXT, $COLUMN_NAME_AMOUNT INTEGER, $COLUMN_NAME_STRING_DOSE TEXT, " +
-            "$COLUMN_NAME_DOSE_DONE INTEGER)"
+            "$COLUMN_NAME_DOSE_DONE INTEGER, $COLUMN_NAME_DOSE_NOTIFY INTEGER)"
 
     const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 

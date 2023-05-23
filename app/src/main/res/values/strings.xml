@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectDraft1</string>
+    <string name="app_name">Your cure</string>
     <string-array name="amount_days_list">
         <item>1 раз в день</item>
         <item>2 раза в день</item>
@@ -10,7 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="today">Сегодня</string>
-    <string name="measurement">Измерения</string>
+    <string name="measurement">Мониторинг показателей</string>
     <string name="medicine">Лекарства</string>
     <string name="settings">Настройки</string>
     <string name="editor_medicine">Создание лекарства</string>

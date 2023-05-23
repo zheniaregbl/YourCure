@@ -36,7 +36,7 @@ class AcceptDoseDialogFragment(_dbManager: DBManager, medicationDose: Medication
                 "Назначено на ${dose.time}"
 
         rootView.btAcceptDose.setOnClickListener {
-            dbManager.updateDose(dose)
+            dbManager.updateDoneDose(dose)
 
             dismiss()
         }

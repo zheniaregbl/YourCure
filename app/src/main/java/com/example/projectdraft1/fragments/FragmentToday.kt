@@ -4,12 +4,10 @@ import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectdraft1.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
@@ -22,6 +20,8 @@ import com.example.projectdraft1.dialogs_fragment.AcceptDoseDialogFragment
 class FragmentToday : Fragment(), MedicationAdapter.Listener {
     lateinit var binding: FragmentTodayBinding
     lateinit var dbManager: DBManager
+    lateinit var alarmManager: AlarmManager
+    lateinit var scheduleAlarm: ScheduleAlarm
     private val adapter = MedicationAdapter(this)
 
     override fun onCreateView(
@@ -35,6 +35,7 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
 
     override fun onAttach(_context: Context) {
         super.onAttach(_context)
+
         dbManager = DBManager(_context)
     }
 
@@ -46,7 +47,6 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
 
     override fun onResume() {
         super.onResume()
-
         dbManager.openDB()
         fillAdapter()
     }

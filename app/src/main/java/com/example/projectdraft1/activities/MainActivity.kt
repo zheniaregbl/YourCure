@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+
         scheduleAlarm.setUniqueAlarm()
     }
 

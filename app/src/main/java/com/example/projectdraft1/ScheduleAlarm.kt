@@ -27,6 +27,7 @@ class ScheduleAlarm(
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
+        intent.putExtra(idExtra, id.toString())
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,

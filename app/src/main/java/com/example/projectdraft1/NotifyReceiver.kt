@@ -18,6 +18,7 @@ import java.util.Date
 const val channelID = "channel1"
 const val titleExtra = "titleExtra"
 const val messageExtra = "messageExtra"
+const val idExtra = "idExtra"
 
 class NotifyReceiver : BroadcastReceiver() {
 
@@ -27,6 +28,8 @@ class NotifyReceiver : BroadcastReceiver() {
         dbManager.openDB()
 
         if(intent.action.equals("medicationAlarm")){
+            dbManager.updateNotifyDose(intent.getStringExtra(idExtra)!!)
+
             Log.d("tag123", SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Date()))
 
             val notification = NotificationCompat.Builder(context, channelID)
@@ -37,12 +40,33 @@ class NotifyReceiver : BroadcastReceiver() {
                 .build()
 
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
             manager.notify((0..Int.MAX_VALUE).random(), notification)
+
+            val doseList = dbManager.readNoNotifyDose()
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val scheduleAlarm = ScheduleAlarm(context, alarmManager)
+
+            if (doseList.isNotEmpty()) {
+                val dose = doseList[0]
+
+                scheduleAlarm.setTimeAlarm(
+                    dose.doseId,
+                    dose.time.substring(0, 2).toInt(),
+                    dose.time.substring(3, dose.time.length).toInt(),
+                    dose.title,
+                    "Примите лекарство ${dose.title}"
+                )
+            } else {
+                scheduleAlarm.setUniqueAlarm()
+            }
         }
         else if (intent.action.equals("uniqueAlarm")){
             dbManager.deleteAllDose()
 
             val medList = dbManager.readActiveMedication()
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val scheduleAlarm = ScheduleAlarm(context, alarmManager)
 
             if (medList.isNotEmpty()){
                 medList.forEach {
@@ -71,11 +95,11 @@ class NotifyReceiver : BroadcastReceiver() {
                 val id = doseList[0].doseId
                 val hour = doseList[0].time.substring(0, 2).toInt()
                 val minute = doseList[0].time.substring(3, doseList[0].time.length).toInt()
-                val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-                val scheduleAlarm = ScheduleAlarm(context, alarmManager)
                 scheduleAlarm.setTimeAlarm(id, hour, minute, doseList[0].title, "Примите лекарство ${doseList[0].title}")
                 Log.d("tag123", "alarmManager created")
+            } else {
+                scheduleAlarm.setUniqueAlarm()
             }
         }
 
