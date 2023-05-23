@@ -9,15 +9,17 @@ import com.example.projectdraft1.Medication
 import com.example.projectdraft1.MedicationDose
 import org.json.JSONObject
 
-//класс для взаимодействия с записями внутри таблиц базы данных
+// класс для взаимодействия с записями внутри таблиц базы данных
 class DBManager(context: Context) {
     private val dbHelper = DBHelper(context)
     var db: SQLiteDatabase? = null
 
+    // открытие базы данных
     fun openDB(){
         db = dbHelper.writableDatabase
     }
 
+    // запись лекарства в таблицу базы данных
     fun insertMedication(
         title: String,
         imageID: Int,
@@ -38,6 +40,7 @@ class DBManager(context: Context) {
         db?.insert(DBNameClass.TABLE_NAME, null, values)
     }
 
+    // запись дозы лекарства в таблицу базы данных
     fun insertDose(
         medicationId: Int,
         title: String,
@@ -60,6 +63,7 @@ class DBManager(context: Context) {
         db?.insert(DBNameClass.TABLE_NAME_DOSE, null, values)
     }
 
+    // получение текущих лекарств
     @SuppressLint("Range")
     fun readActiveMedication() : ArrayList<Medication>{
         val dataList = ArrayList<Medication>()
@@ -94,6 +98,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    // получение всех лекарств
     @SuppressLint("Range")
     fun readAllMedication() : ArrayList<Medication>{
         val dataList = ArrayList<Medication>()
@@ -124,6 +129,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    // получение всех доз лекарств
     @SuppressLint("Range", "Recycle")
     fun readDose() : ArrayList<MedicationDose> {
         val dataList = ArrayList<MedicationDose>()
@@ -153,6 +159,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    // получение текущих доз лекарств
     @SuppressLint("Range", "Recycle")
     fun readActiveDose() : ArrayList<MedicationDose> {
         val dataList = ArrayList<MedicationDose>()
@@ -186,6 +193,7 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    // получение доз, о которых не было уведомлений
     @SuppressLint("Recycle", "Range")
     fun readNoNotifyDose() : ArrayList<MedicationDose> {
         val dataList = ArrayList<MedicationDose>()
@@ -219,16 +227,19 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    // удаление дозы лекарства по id
     fun deleteDose(id: String){
         val selection = BaseColumns._ID + "=$id"
 
         db?.delete(DBNameClass.TABLE_NAME_DOSE, selection, null)
     }
 
+    // удаление всех доз лекарств
     fun deleteAllDose() {
         db?.delete(DBNameClass.TABLE_NAME_DOSE, null, null)
     }
 
+    // обновление дозы лекарства (при принятии лекарства)
     fun updateDoneDose(dose: MedicationDose) {
         val selection = BaseColumns._ID + "=${dose.doseId}"
 
@@ -245,6 +256,7 @@ class DBManager(context: Context) {
         db?.update(DBNameClass.TABLE_NAME_DOSE, values, selection, null)
     }
 
+    // обновление дозы лекарства (при получении уведомления)
     fun updateNotifyDose(id: String){
         val selection = BaseColumns._ID + "=${id}"
 

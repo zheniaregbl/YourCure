@@ -2,7 +2,9 @@ package com.example.projectdraft1.db
 
 import android.provider.BaseColumns
 
-//класс для хранения константных значений базы данных (имя базы данных, имена полей и тд)
+/* класс для хранения константных значений базы данных: имена таблиц, имена атрибутов,
+запросы к базе данных */
+
 object DBNameClass : BaseColumns {
     const val TABLE_NAME = "myTable"
     const val COLUMN_NAME_TITLE = "title"

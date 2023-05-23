@@ -1,6 +1,5 @@
 package com.example.projectdraft1.fragments
 
-import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectdraft1.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
-import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.activities.EditorActivity
 import com.example.projectdraft1.databinding.FragmentTodayBinding
 import com.example.projectdraft1.db.DBManager
@@ -20,8 +18,6 @@ import com.example.projectdraft1.dialogs_fragment.AcceptDoseDialogFragment
 class FragmentToday : Fragment(), MedicationAdapter.Listener {
     lateinit var binding: FragmentTodayBinding
     lateinit var dbManager: DBManager
-    lateinit var alarmManager: AlarmManager
-    lateinit var scheduleAlarm: ScheduleAlarm
     private val adapter = MedicationAdapter(this)
 
     override fun onCreateView(

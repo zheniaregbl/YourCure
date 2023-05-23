@@ -70,7 +70,8 @@ class EditorActivity : AppCompatActivity() {
         dbManager.closeDB()
     }
 
-    private fun formationDose(listLineTime : Array<LinearLayout>, stringDose : String): String{ //!!!
+    // формирование json-строки доз лекарства
+    private fun formationDose(listLineTime : Array<LinearLayout>, stringDose : String): String{
         val obj = JSONObject()
         val arrayObj = JSONArray()
 

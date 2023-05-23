@@ -9,7 +9,6 @@ import android.media.AudioAttributes
 import android.media.RingtoneManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.projectdraft1.fragments.FragmentMeasurement
 import com.example.projectdraft1.fragments.FragmentSettings
@@ -20,7 +19,6 @@ import com.example.projectdraft1.channelID
 import com.example.projectdraft1.databinding.ActivityMainBinding
 import com.example.projectdraft1.fragments.FragmentMedicine
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
 
@@ -37,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.title = resources.getString(R.string.today)
 
+        // слушатель нажатий на нижнюю панель навигации
         binding.bNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.today -> {
@@ -79,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    // создание канала уведомлений
     @SuppressLint("NewApi")
     private fun createNotificationChannel() {
         val name = "Notification Channel"
