@@ -2,6 +2,7 @@ package com.example.projectdraft1
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
+import android.app.Notification
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -32,6 +33,7 @@ class NotifyReceiver : BroadcastReceiver() {
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(intent.getStringExtra(titleExtra))
                 .setContentText(intent.getStringExtra(messageExtra))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .build()
 
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

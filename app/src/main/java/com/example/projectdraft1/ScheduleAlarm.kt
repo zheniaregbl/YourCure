@@ -24,6 +24,7 @@ class ScheduleAlarm(
         val intent = Intent(context, NotifyReceiver::class.java)
 
         intent.action = "medicationAlarm"
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
 
@@ -55,6 +56,7 @@ class ScheduleAlarm(
             val intent = Intent(context, NotifyReceiver::class.java)
 
             intent.action = "uniqueAlarm"
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
