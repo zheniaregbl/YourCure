@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdraft1.databinding.MedicationItem2Binding
 
-class MedicationAdapter(val listener: Listener): RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
+class MedicationAdapter(private val listener: Listener): RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
     private var medicationDoseList = ArrayList<MedicationDose>()
 
     class MedicationHolder(item: View): RecyclerView.ViewHolder(item) {
@@ -57,6 +57,18 @@ class MedicationAdapter(val listener: Listener): RecyclerView.Adapter<Medication
     @SuppressLint("NotifyDataSetChanged")
     fun setListAdapter(list: ArrayList<MedicationDose>){
         medicationDoseList = list
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeItem(id: Int){
+        for (i in medicationDoseList.indices){
+            if (medicationDoseList[i].doseId == id){
+                medicationDoseList.removeAt(i)
+                break
+            }
+        }
+
         notifyDataSetChanged()
     }
 

@@ -1,7 +1,9 @@
 package com.example.projectdraft1.activities
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +20,10 @@ import android.widget.Toast
 import androidx.core.view.get
 import com.example.projectdraft1.dialogs_fragment.DaysAmountDialogFragment
 import com.example.projectdraft1.MedicationArrayAdapter
+import com.example.projectdraft1.MedicationDose
 import com.example.projectdraft1.Medications
 import com.example.projectdraft1.R
+import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.dialogs_fragment.TimeDialogFragment
 import com.example.projectdraft1.dialogs_fragment.WeekDialogFragment
 import com.example.projectdraft1.databinding.ActivityEditorBinding
@@ -127,6 +131,32 @@ class EditorActivity : AppCompatActivity() {
                     days
                 )
 
+                val curDate = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
+
+                if (curDate == tvDatePicker.text.toString()) {
+                    val lastMedication = dbManager.readAllMedication().last()
+
+                    val stringJson = lastMedication.dose
+                    val obj = JSONObject(stringJson)
+                    val doseArray = obj.getJSONArray("dose")
+
+                    for (i in 0 until doseArray.length()) {
+                        val dose = doseArray.getJSONObject(i)
+                        val time = dose.getString("time")
+                        val amount = dose.getInt("amount")
+                        val stringDose = dose.getString("stringDose")
+
+                        dbManager.insertDose(
+                            lastMedication.medicationId,
+                            lastMedication.title,
+                            lastMedication.imageId,
+                            time,
+                            amount,
+                            stringDose
+                        )
+                    }
+                }
+
                 dbManager.closeDB()
 
                 finish()
@@ -134,7 +164,7 @@ class EditorActivity : AppCompatActivity() {
                 Toast.makeText(
                     this@EditorActivity,
                     "Вы не заполнили название лекарства",
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
                 ).show()
             }
         }
@@ -201,7 +231,7 @@ class EditorActivity : AppCompatActivity() {
                 R.style.PickerTheme,
                 {_, year, month, day_of_month ->
                 cal[Calendar.YEAR] = year
-                cal[Calendar.MONTH] = month + 1
+                cal[Calendar.MONTH] = month
                 cal[Calendar.DAY_OF_MONTH] = day_of_month
 
                 tvDatePicker.text = SimpleDateFormat("yyyy-MM-dd").format(cal.time)},

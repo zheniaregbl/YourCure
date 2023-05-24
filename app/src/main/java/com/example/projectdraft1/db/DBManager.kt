@@ -33,6 +33,7 @@ class DBManager(context: Context) {
             put(DBNameClass.COLUMN_NAME_DOSE, dose)
             put(DBNameClass.COLUMN_NAME_DATE_START, dateStart)
             put(DBNameClass.COLUMN_NAME_DAYS, days)
+            put(DBNameClass.COLUMN_NAME_DAYS_PASS, 0)
             put(DBNameClass.COLUMN_NAME_ACCEPT_DOSE, 0)
             put(DBNameClass.COLUMN_NAME_END, 0)
         }
@@ -80,16 +81,33 @@ class DBManager(context: Context) {
 
         while(cursor?.moveToNext()!!){
             val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+            val daysPass = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS_PASS))
+            val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
             val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
             val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
-            val countDose = JSONObject(stringJson).getJSONArray("dose").length()
+            /*val countDose = JSONObject(stringJson).getJSONArray("dose").length()
 
-            if ((days == 0) or (acceptDose < days * countDose)){
+            (days == 0) or (acceptDose < days * countDose)*/
+
+            val end = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_END))
+
+            if (end == 0){
                 val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
                 val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
                 val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
 
-                dataList.add(Medication(id, imageID, title, stringJson, days, acceptDose))
+                dataList.add(
+                    Medication(
+                        id,
+                        imageID,
+                        title,
+                        dateStart,
+                        stringJson,
+                        days,
+                        daysPass,
+                        acceptDose
+                    )
+                )
             }
         }
 
@@ -115,13 +133,26 @@ class DBManager(context: Context) {
 
         while(cursor?.moveToNext()!!){
             val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+            val daysPass = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS_PASS))
+            val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
             val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
             val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
             val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
             val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
             val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
 
-            dataList.add(Medication(id, imageID, title, stringJson, days, acceptDose))
+            dataList.add(
+                Medication(
+                    id,
+                    imageID,
+                    title,
+                    dateStart,
+                    stringJson,
+                    days,
+                    daysPass,
+                    acceptDose
+                )
+            )
         }
 
         cursor.close()
@@ -237,6 +268,36 @@ class DBManager(context: Context) {
     // удаление всех доз лекарств
     fun deleteAllDose() {
         db?.delete(DBNameClass.TABLE_NAME_DOSE, null, null)
+    }
+
+    fun updateEndMedication(id: String){
+        val selection = BaseColumns._ID + "=${id}"
+
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_END, 1)
+        }
+
+        db?.update(DBNameClass.TABLE_NAME, values, selection, null)
+    }
+
+    fun updateMedDaysPass(id: String, daysPass: Int){
+        val selection = BaseColumns._ID + "=${id}"
+
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_DAYS_PASS, daysPass)
+        }
+
+        db?.update(DBNameClass.TABLE_NAME, values, selection, null)
+    }
+
+    fun updateAcceptMedDose(id: String, acceptDoses: Int){
+        val selection = BaseColumns._ID + "=${id}"
+
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_ACCEPT_DOSE, acceptDoses)
+        }
+
+        db?.update(DBNameClass.TABLE_NAME, values, selection, null)
     }
 
     // обновление дозы лекарства (при принятии лекарства)

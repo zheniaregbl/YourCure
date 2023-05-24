@@ -64,7 +64,10 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
     }
 
     private fun fillAdapter(){
-        adapter.setListAdapter(dbManager.readActiveDose())
+        val doseList = dbManager.readActiveDose()
+        doseList.sort()
+
+        adapter.setListAdapter(doseList)
     }
 
     companion object {
@@ -73,7 +76,7 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
     }
 
     override fun onClick(medicationDose: MedicationDose) {
-        val dialog = AcceptDoseDialogFragment(dbManager, medicationDose)
+        val dialog = AcceptDoseDialogFragment(dbManager, medicationDose, adapter)
 
         dialog.show(childFragmentManager, "acceptDoseDialog")
     }

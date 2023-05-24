@@ -31,13 +31,15 @@
         <Button
             android:id="@+id/separation"
             android:layout_width="2dp"
-            android:layout_height="match_parent"
+            android:layout_height="66dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="68dp"
-            android:backgroundTint="@color/light_grey"
+            android:backgroundTint="@color/grey"
             android:clickable="false"
+            android:contextClickable="false"
             android:elevation="0dp"
-            android:shadowColor="@android:color/transparent"
-            android:text="Button" />
+            android:text="Button"
+            app:toggleCheckedStateOnClick="false" />
 
         <TextView
             android:id="@+id/tvNamePill"

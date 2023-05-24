@@ -2,17 +2,19 @@ package com.example.projectdraft1
 
 import android.annotation.SuppressLint
 import android.app.AlarmManager
-import android.app.Notification
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.projectdraft1.db.DBManager
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 const val channelID = "channel1"
@@ -24,6 +26,48 @@ class NotifyReceiver : BroadcastReceiver() {
 
     @SuppressLint("NotificationPermission", "SimpleDateFormat")
     override fun onReceive(context: Context, intent: Intent) {
+        fun passDayMedication(dbManager: DBManager){
+            val medicationList = dbManager.readActiveMedication()
+            val curDateString = SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis())
+
+            val curDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                LocalDate.parse(curDateString)
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
+
+            for (i in medicationList.indices){
+                val medication = medicationList[i]
+
+                val dateStart = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    LocalDate.parse(medication.dateStart)
+                } else {
+                    TODO("VERSION.SDK_INT < O")
+                }
+
+                Log.d("tag123", medication.daysPass.toString())
+
+                if ((medication.days != 0) and (dateStart < curDate)){
+                    dbManager.updateMedDaysPass(
+                        medication.medicationId.toString(),
+                        medication.daysPass + 1
+                    )
+                }
+            }
+        }
+
+        fun endNotActiveMedication(dbManager: DBManager){
+            val medicationList = dbManager.readActiveMedication()
+
+            for (i in medicationList.indices){
+                val medication = medicationList[i]
+
+                if ((medication.days == medication.daysPass) and (medication.days != 0)){
+                    dbManager.updateEndMedication(medication.medicationId.toString())
+                }
+            }
+        }
+
         val dbManager = DBManager(context)
         dbManager.openDB()
 
@@ -48,6 +92,8 @@ class NotifyReceiver : BroadcastReceiver() {
             val scheduleAlarm = ScheduleAlarm(context, alarmManager)
 
             if (doseList.isNotEmpty()) {
+                doseList.sort()
+
                 val dose = doseList[0]
 
                 scheduleAlarm.setTimeAlarm(
@@ -62,6 +108,9 @@ class NotifyReceiver : BroadcastReceiver() {
             }
         }
         else if (intent.action.equals("uniqueAlarm")){
+            passDayMedication(dbManager)
+            endNotActiveMedication(dbManager)
+
             dbManager.deleteAllDose()
 
             val medList = dbManager.readActiveMedication()

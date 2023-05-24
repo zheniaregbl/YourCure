@@ -12,6 +12,7 @@ object DBNameClass : BaseColumns {
     const val COLUMN_NAME_DOSE = "dose"
     const val COLUMN_NAME_DATE_START = "date_start"
     const val COLUMN_NAME_DAYS = "days"
+    const val COLUMN_NAME_DAYS_PASS = "days_pass"
     const val COLUMN_NAME_ACCEPT_DOSE = "accept_dose"
     const val COLUMN_NAME_END = "end"
 
@@ -25,13 +26,14 @@ object DBNameClass : BaseColumns {
     const val COLUMN_NAME_DOSE_DONE = "done"
     const val COLUMN_NAME_DOSE_NOTIFY = "notify"
 
-    const val DATABASE_VERSION = 6
+    const val DATABASE_VERSION = 7
     const val DATABASE_NAME = "MyDB.db"
 
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME " +
             "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_TITLE TEXT, " +
             "$COLUMN_NAME_IMAGE_ID INTEGER, $COLUMN_NAME_DOSE TEXT, $COLUMN_NAME_DATE_START TEXT, " +
-            "$COLUMN_NAME_DAYS INTEGER, $COLUMN_NAME_ACCEPT_DOSE INTEGER, $COLUMN_NAME_END INTEGER)"
+            "$COLUMN_NAME_DAYS INTEGER, $COLUMN_NAME_ACCEPT_DOSE INTEGER, " +
+            "$COLUMN_NAME_DAYS_PASS INTEGER, $COLUMN_NAME_END INTEGER)"
 
     const val CREATE_TABLE_DOSE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME_DOSE " +
             "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_MEDICATION_ID INTEGER, " +

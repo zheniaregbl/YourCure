@@ -8,12 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.projectdraft1.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
 import com.example.projectdraft1.R
 import com.example.projectdraft1.db.DBManager
 import kotlinx.android.synthetic.main.accept_medication_dialog.view.*
 
-class AcceptDoseDialogFragment(_dbManager: DBManager, medicationDose: MedicationDose) : DialogFragment() {
+class AcceptDoseDialogFragment(
+    _dbManager: DBManager,
+    medicationDose: MedicationDose,
+    private val adapter: MedicationAdapter
+) : DialogFragment() {
     private val dose = medicationDose
     private val dbManager = _dbManager
 
@@ -37,6 +42,19 @@ class AcceptDoseDialogFragment(_dbManager: DBManager, medicationDose: Medication
 
         rootView.btAcceptDose.setOnClickListener {
             dbManager.updateDoneDose(dose)
+            adapter.removeItem(dose.doseId)
+
+            var acceptDoses = 0
+            val listMedication = dbManager.readActiveMedication()
+
+            for (i in listMedication.indices){
+                if (listMedication[i].medicationId == dose.medicationId){
+                    acceptDoses = listMedication[i].acceptDose
+                    break
+                }
+            }
+
+            dbManager.updateAcceptMedDose(dose.medicationId.toString(), acceptDoses + 1)
 
             dismiss()
         }

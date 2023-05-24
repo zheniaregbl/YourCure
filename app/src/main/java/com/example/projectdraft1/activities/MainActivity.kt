@@ -17,10 +17,12 @@ import com.example.projectdraft1.R
 import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.channelID
 import com.example.projectdraft1.databinding.ActivityMainBinding
+import com.example.projectdraft1.db.DBManager
 import com.example.projectdraft1.fragments.FragmentMedicine
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private val dbManager = DBManager(this)
 
     @SuppressLint("AppCompatMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,10 +68,20 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+        dbManager.openDB()
 
-        scheduleAlarm.setUniqueAlarm()
+        if (dbManager.readActiveDose().isEmpty()) {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+
+            scheduleAlarm.setUniqueAlarm()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        dbManager.closeDB()
     }
 
     private fun openFragment(fragment: Fragment){
