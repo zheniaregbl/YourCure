@@ -11,13 +11,15 @@ import androidx.fragment.app.DialogFragment
 import com.example.projectdraft1.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
 import com.example.projectdraft1.R
+import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.db.DBManager
 import kotlinx.android.synthetic.main.accept_medication_dialog.view.*
 
 class AcceptDoseDialogFragment(
     _dbManager: DBManager,
     medicationDose: MedicationDose,
-    private val adapter: MedicationAdapter
+    private val adapter: MedicationAdapter,
+    private val scheduleAlarm: ScheduleAlarm
 ) : DialogFragment() {
     private val dose = medicationDose
     private val dbManager = _dbManager
@@ -55,6 +57,8 @@ class AcceptDoseDialogFragment(
             }
 
             dbManager.updateAcceptMedDose(dose.medicationId.toString(), acceptDoses + 1)
+
+            scheduleAlarm.setUniqueAlarm()
 
             dismiss()
         }

@@ -91,7 +91,9 @@ class NotifyReceiver : BroadcastReceiver() {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val scheduleAlarm = ScheduleAlarm(context, alarmManager)
 
-            if (doseList.isNotEmpty()) {
+            Log.d("tag123", doseList.size.toString())
+
+            if (doseList.size != 0) {
                 doseList.sort()
 
                 val dose = doseList[0]
@@ -105,6 +107,7 @@ class NotifyReceiver : BroadcastReceiver() {
                 )
             } else {
                 scheduleAlarm.setUniqueAlarm()
+                Log.d("tag123", "saveAlarm")
             }
         }
         else if (intent.action.equals("uniqueAlarm")){

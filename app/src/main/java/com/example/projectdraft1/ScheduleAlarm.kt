@@ -46,7 +46,7 @@ class ScheduleAlarm(
         )
 
         Log.d("tag123", "$hour : $minute")
-        Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+        /*Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()*/
         Log.d("tag123", "done")
     }
 
@@ -77,7 +77,8 @@ class ScheduleAlarm(
                 pendingIntent
             )
 
-            Toast.makeText(context, "setUnique", Toast.LENGTH_SHORT).show()
+            Log.d("tag123", "setUnique")
+            /*Toast.makeText(context, "setUnique", Toast.LENGTH_SHORT).show()*/
         }
 
         dbManager.closeDB()

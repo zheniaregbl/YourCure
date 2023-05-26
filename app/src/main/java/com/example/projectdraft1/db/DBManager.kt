@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import com.example.projectdraft1.MeasureValue
 import com.example.projectdraft1.Medication
 import com.example.projectdraft1.MedicationDose
 import org.json.JSONObject
@@ -62,6 +63,34 @@ class DBManager(context: Context) {
         }
 
         db?.insert(DBNameClass.TABLE_NAME_DOSE, null, values)
+    }
+
+    fun insertPressure(topValue: Int, bottomValue: Int, date: String){
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_TOP, topValue)
+            put(DBNameClass.COLUMN_NAME_BOTTOM, bottomValue)
+            put(DBNameClass.COLUMN_NAME_DATE_PRESSURE, date)
+        }
+
+        db?.insert(DBNameClass.TABLE_NAME_PRESSURE, null, values)
+    }
+
+    fun insertWeight(value: Float, date: String){
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_VALUE_WEIGHT, value)
+            put(DBNameClass.COLUMN_NAME_DATE_WEIGHT, date)
+        }
+
+        db?.insert(DBNameClass.TABLE_NAME_WEIGHT, null, values)
+    }
+
+    fun insertTemperature(value: Float, date: String){
+        val values = ContentValues().apply {
+            put(DBNameClass.COLUMN_NAME_VALUE_TEMPERATURE, value)
+            put(DBNameClass.COLUMN_NAME_DATE_TEMPERATURE, date)
+        }
+
+        db?.insert(DBNameClass.TABLE_NAME_WEIGHT, null, values)
     }
 
     // получение текущих лекарств
@@ -253,6 +282,31 @@ class DBManager(context: Context) {
 
                 dataList.add(MedicationDose(id, medicationId, title, imageId, time, amount, stringDose))
             }
+        }
+
+        return dataList
+    }
+
+    @SuppressLint("Range", "Recycle")
+    fun readPressureValue() : ArrayList<MeasureValue> {
+        val dataList = ArrayList<MeasureValue>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME_PRESSURE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!) {
+            val firstValue = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TOP))
+            val secondValue = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_BOTTOM))
+            val date = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_PRESSURE))
+
+            dataList.add(MeasureValue(firstValue, secondValue, date))
         }
 
         return dataList
