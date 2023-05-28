@@ -1,7 +1,8 @@
 package com.example.projectdraft1
 
 data class MeasureValue(
-    val firstValue: Int,
+    val firstValue: Float,
     val secondValue: Int?,
-    val dateMeasure: String
+    val dateMeasure: String,
+    val type: String
 )

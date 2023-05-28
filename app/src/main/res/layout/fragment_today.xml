@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FragmentToday">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animMedication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/placeHolder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/medicine_animation" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
         android:layout_width="match_parent"

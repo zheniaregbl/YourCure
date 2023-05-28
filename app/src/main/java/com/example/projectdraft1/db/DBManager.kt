@@ -5,6 +5,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import androidx.core.database.getFloatOrNull
+import androidx.core.database.getIntOrNull
 import com.example.projectdraft1.MeasureValue
 import com.example.projectdraft1.Medication
 import com.example.projectdraft1.MedicationDose
@@ -65,32 +67,20 @@ class DBManager(context: Context) {
         db?.insert(DBNameClass.TABLE_NAME_DOSE, null, values)
     }
 
-    fun insertPressure(topValue: Int, bottomValue: Int, date: String){
+    fun insertMeasure(
+        firstValue: Float,
+        secondValue: Int?,
+        dateMeasure: String,
+        type: String
+    ){
         val values = ContentValues().apply {
-            put(DBNameClass.COLUMN_NAME_TOP, topValue)
-            put(DBNameClass.COLUMN_NAME_BOTTOM, bottomValue)
-            put(DBNameClass.COLUMN_NAME_DATE_PRESSURE, date)
+            put(DBNameClass.COLUMN_NAME_TOP_VALUE, firstValue)
+            put(DBNameClass.COLUMN_NAME_BOTTOM_VALUE, secondValue)
+            put(DBNameClass.COLUMN_NAME_DATE_MEASURE, dateMeasure)
+            put(DBNameClass.COLUMN_NAME_TYPE_MEASURE, type)
         }
 
-        db?.insert(DBNameClass.TABLE_NAME_PRESSURE, null, values)
-    }
-
-    fun insertWeight(value: Float, date: String){
-        val values = ContentValues().apply {
-            put(DBNameClass.COLUMN_NAME_VALUE_WEIGHT, value)
-            put(DBNameClass.COLUMN_NAME_DATE_WEIGHT, date)
-        }
-
-        db?.insert(DBNameClass.TABLE_NAME_WEIGHT, null, values)
-    }
-
-    fun insertTemperature(value: Float, date: String){
-        val values = ContentValues().apply {
-            put(DBNameClass.COLUMN_NAME_VALUE_TEMPERATURE, value)
-            put(DBNameClass.COLUMN_NAME_DATE_TEMPERATURE, date)
-        }
-
-        db?.insert(DBNameClass.TABLE_NAME_WEIGHT, null, values)
+        db?.insert(DBNameClass.TABLE_NAME_MEASURE, null, values)
     }
 
     // получение текущих лекарств
@@ -287,12 +277,12 @@ class DBManager(context: Context) {
         return dataList
     }
 
-    @SuppressLint("Range", "Recycle")
-    fun readPressureValue() : ArrayList<MeasureValue> {
+    @SuppressLint("Recycle", "Range")
+    fun readMeasure(type: String) : ArrayList<MeasureValue>{
         val dataList = ArrayList<MeasureValue>()
 
         val cursor = db?.query(
-            DBNameClass.TABLE_NAME_PRESSURE,
+            DBNameClass.TABLE_NAME_MEASURE,
             null,
             null,
             null,
@@ -302,11 +292,15 @@ class DBManager(context: Context) {
         )
 
         while(cursor?.moveToNext()!!) {
-            val firstValue = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TOP))
-            val secondValue = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_BOTTOM))
-            val date = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_PRESSURE))
+            val dataType = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TYPE_MEASURE))
 
-            dataList.add(MeasureValue(firstValue, secondValue, date))
+            if (dataType == type) {
+                val topValue = cursor.getFloat(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TOP_VALUE))
+                val bottomValue = cursor.getIntOrNull(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_BOTTOM_VALUE))
+                val dateMeasure = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_MEASURE))
+
+                dataList.add(MeasureValue(topValue, bottomValue, dateMeasure, dataType))
+            }
         }
 
         return dataList

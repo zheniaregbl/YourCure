@@ -15,6 +15,18 @@
     <string name="settings">Настройки</string>
     <string name="editor_medicine">Создание лекарства</string>
 
+    <string name="pressure">Давление</string>
+    <string name="weight">Вес</string>
+    <string name="temperature">Температура</string>
+
+    <string name="topMeasure1">верхнее, SYS</string>
+    <string name="topMeasure2">вес (кг)</string>
+    <string name="topMeasure3">температура (°C)</string>
+    <string name="bottomMeasure1">нижнее, DIA</string>
+
+    <string name="textHide">Скрыть</string>
+    <string name="textReveal">Раскрыть</string>
+
     <string-array name="dose_string_array">
         <item>таблетка(-и/-ок)</item>
     </string-array>

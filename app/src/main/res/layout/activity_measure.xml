@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_background_layout"
+    tools:context=".activities.MeasureActivity">
+
+    <TextView
+        android:id="@+id/tvInfoMeasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="21dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="Добавление измерения"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHideCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="30dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/textHide"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardEditMeasure"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:visibility="visible"
+        app:cardCornerRadius="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfoMeasure">
+
+        <TextView
+            android:id="@+id/tvMeasureInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/topMeasure1"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="65dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_minus"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="10dp"
+            app:tint="@color/blue" />
+
+        <EditText
+            android:id="@+id/edTopValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="73dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:hint="0"
+            android:inputType="number|numberDecimal"
+            android:text="80"
+            android:textColor="@color/blue_grey"
+            android:textColorHint="@color/blue_grey"
+            android:textSize="24sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusMeasure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="52dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_add_plus"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="25dp"
+            app:tint="@color/blue" />
+
+        <Button
+            android:id="@+id/btAddMeasure1"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="20dp"
+            android:text="Добавить"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvMeasureInfo3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="140dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="@string/bottomMeasure1"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabMinusMeasure2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="200dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_minus"
+            android:visibility="gone"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="10dp"
+            app:tint="@color/blue" />
+
+        <EditText
+            android:id="@+id/edBottomValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="208dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:hint="0"
+            android:inputType="number|numberSigned"
+            android:text="60"
+            android:textColor="@color/blue_grey"
+            android:textColorHint="@color/blue_grey"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPlusMeasure2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="200dp"
+            android:layout_marginEnd="52dp"
+            android:clickable="true"
+            android:importantForAccessibility="no"
+            android:scaleType="center"
+            android:src="@drawable/ic_add_plus"
+            android:visibility="gone"
+            app:backgroundTint="@color/grey_floating_button"
+            app:fabCustomSize="45dp"
+            app:maxImageSize="25dp"
+            app:tint="@color/blue" />
+
+        <Button
+            android:id="@+id/btAddMeasure2"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="280dp"
+            android:layout_marginBottom="20dp"
+            android:text="Добавить"
+            android:visibility="gone" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvInfoMeasure4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="История"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardEditMeasure" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfoMeasure4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

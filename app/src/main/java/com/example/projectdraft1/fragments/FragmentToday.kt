@@ -53,6 +53,7 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
         super.onResume()
         dbManager.openDB()
         fillAdapter()
+        showAnimLottie()
     }
 
     override fun onDestroy() {
@@ -76,6 +77,14 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
         doseList.sort()
 
         adapter.setListAdapter(doseList)
+    }
+
+    private fun showAnimLottie() = with(binding){
+        if (adapter.getListAdapter().isEmpty()) {
+            animMedication.visibility = View.VISIBLE
+        } else {
+            animMedication.visibility = View.GONE
+        }
     }
 
     companion object {

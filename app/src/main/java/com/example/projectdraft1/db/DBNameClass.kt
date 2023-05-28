@@ -26,20 +26,17 @@ object DBNameClass : BaseColumns {
     const val COLUMN_NAME_DOSE_DONE = "done"
     const val COLUMN_NAME_DOSE_NOTIFY = "notify"
 
-    const val TABLE_NAME_PRESSURE = "myTablePressure"
-    const val COLUMN_NAME_TOP = "topValue"
-    const val COLUMN_NAME_BOTTOM = "bottomValue"
-    const val COLUMN_NAME_DATE_PRESSURE = "datePressure"
+    const val TABLE_NAME_MEASURE = "myTablePressure"
+    const val COLUMN_NAME_TOP_VALUE = "top_value"
+    const val COLUMN_NAME_BOTTOM_VALUE = "bottom_value"
+    const val COLUMN_NAME_DATE_MEASURE = "date_measure"
+    const val COLUMN_NAME_TYPE_MEASURE = "type_measure"
 
-    const val TABLE_NAME_WEIGHT = "myTableWeight"
-    const val COLUMN_NAME_VALUE_WEIGHT = "valueWeight"
-    const val COLUMN_NAME_DATE_WEIGHT = "dateWeight"
+    const val TYPE_PRESSURE = "pressure"
+    const val TYPE_WEIGHT = "weight"
+    const val TYPE_TEMPERATURE = "temperature"
 
-    const val TABLE_NAME_TEMPERATURE = "myTableTemperature"
-    const val COLUMN_NAME_VALUE_TEMPERATURE = "valueTemperature"
-    const val COLUMN_NAME_DATE_TEMPERATURE = "dateTemperature"
-
-    const val DATABASE_VERSION = 8
+    const val DATABASE_VERSION = 10
     const val DATABASE_NAME = "MyDB.db"
 
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME " +
@@ -54,25 +51,14 @@ object DBNameClass : BaseColumns {
             "$COLUMN_NAME_TIME TEXT, $COLUMN_NAME_AMOUNT INTEGER, $COLUMN_NAME_STRING_DOSE TEXT, " +
             "$COLUMN_NAME_DOSE_DONE INTEGER, $COLUMN_NAME_DOSE_NOTIFY INTEGER)"
 
-    const val CREATE_TABLE_PRESSURE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME_PRESSURE " +
-            "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_TOP INTEGER, " +
-            "$COLUMN_NAME_BOTTOM INTEGER, $COLUMN_NAME_DATE_PRESSURE TEXT)"
-
-    const val CREATE_TABLE_WEIGHT = "CREATE TABLE IF NOT EXISTS $TABLE_NAME_WEIGHT " +
-            "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_VALUE_WEIGHT REAL, " +
-            "$COLUMN_NAME_DATE_WEIGHT TEXT)"
-
-    const val CREATE_TABLE_TEMPERATURE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME_TEMPERATURE " +
-            "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_VALUE_TEMPERATURE REAL" +
-            "$COLUMN_NAME_DATE_TEMPERATURE TEXT)"
+    const val CREATE_TABLE_MEASURE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME_MEASURE " +
+            "(${BaseColumns._ID} INTEGER PRIMARY KEY, $COLUMN_NAME_TOP_VALUE REAL, " +
+            "$COLUMN_NAME_BOTTOM_VALUE INTEGER, $COLUMN_NAME_DATE_MEASURE TEXT, " +
+            "$COLUMN_NAME_TYPE_MEASURE TEXT)"
 
     const val DELETE_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
 
     const val DELETE_TABLE_DOSE = "DROP TABLE IF EXISTS $TABLE_NAME_DOSE"
 
-    const val DELETE_TABLE_PRESSURE = "DROP TABLE IF EXISTS $TABLE_NAME_PRESSURE"
-
-    const val DELETE_TABLE_WEIGHT = "DROP TABLE IF EXISTS $TABLE_NAME_WEIGHT"
-
-    const val DELETE_TABLE_TEMPERATURE = "DROP TABLE IF EXISTS $TABLE_NAME_TEMPERATURE"
+    const val DELETE_TABLE_MEASURE = "DROP TABLE IF EXISTS $TABLE_NAME_MEASURE"
 }
