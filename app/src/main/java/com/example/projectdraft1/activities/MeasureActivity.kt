@@ -40,6 +40,7 @@ class MeasureActivity : AppCompatActivity() {
 
         dbManager.openDB()
         fillAdapter(intent.getStringExtra("typeMeasure").toString())
+        showAnimLottie()
     }
 
     override fun onDestroy() {
@@ -91,6 +92,8 @@ class MeasureActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
+                    showAnimLottie()
                 }
             }
 
@@ -123,6 +126,8 @@ class MeasureActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
+                    showAnimLottie()
                 }
             }
 
@@ -155,6 +160,8 @@ class MeasureActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
+                    showAnimLottie()
                 }
             }
         }
@@ -288,6 +295,16 @@ class MeasureActivity : AppCompatActivity() {
         if (measureList.isNotEmpty()) {
             measureList.sortBy { LocalDate.parse(it.dateMeasure) }
             adapter.setListAdapter(measureList)
+        }
+    }
+
+    private fun showAnimLottie() = with(binding){
+        if (adapter.getListAdapter().isEmpty()) {
+            animMeasure.visibility = View.VISIBLE
+            tvNotOnceMeasure.visibility = View.VISIBLE
+        } else {
+            animMeasure.visibility = View.GONE
+            tvNotOnceMeasure.visibility = View.GONE
         }
     }
 }

@@ -8,8 +8,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animMedication"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/placeHolder"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/medicine_animation" />
+        app:lottie_rawRes="@raw/medicine_animation2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcView"
@@ -38,4 +38,16 @@
         app:maxImageSize="30dp"
         app:shapeAppearanceOverlay="@style/FabShape"
         app:tint="@null" />
+
+    <TextView
+        android:id="@+id/tvNotOnceDose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="420dp"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:text="Нет медикаментов\nна сегодня"
+        android:textColor="@color/dark_grey"
+        android:textSize="20sp" />
 </FrameLayout>

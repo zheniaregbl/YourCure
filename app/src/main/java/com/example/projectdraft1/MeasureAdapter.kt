@@ -68,4 +68,8 @@ class MeasureAdapter(private val type: String): RecyclerView.Adapter<MeasureAdap
 
         notifyDataSetChanged()
     }
+
+    fun getListAdapter(): ArrayList<MeasureValue>{
+        return measureValueList
+    }
 }

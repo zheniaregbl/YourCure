@@ -67,7 +67,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:src="@drawable/pressure_image" />
+            android:src="@drawable/ic_pressure" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -126,12 +126,12 @@
 
         <ImageView
             android:id="@+id/imageWeight"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="end"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/weight_image" />
+            android:src="@drawable/ic_weight" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -190,12 +190,12 @@
 
         <ImageView
             android:id="@+id/imageTemperature"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="end"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
-            android:src="@drawable/temperature_image" />
+            android:src="@drawable/ic_temperature" />
     </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

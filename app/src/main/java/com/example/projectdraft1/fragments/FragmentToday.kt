@@ -82,8 +82,10 @@ class FragmentToday : Fragment(), MedicationAdapter.Listener {
     private fun showAnimLottie() = with(binding){
         if (adapter.getListAdapter().isEmpty()) {
             animMedication.visibility = View.VISIBLE
+            tvNotOnceDose.visibility = View.VISIBLE
         } else {
             animMedication.visibility = View.GONE
+            tvNotOnceDose.visibility = View.GONE
         }
     }
 
