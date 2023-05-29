@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/inter_medium"
         android:text="@string/textHide"
         android:textColor="@color/blue"
@@ -200,6 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardEditMeasure" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcViewMeasure"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"

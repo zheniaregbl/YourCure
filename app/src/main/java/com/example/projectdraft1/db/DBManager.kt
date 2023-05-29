@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
+import android.util.Log
 import androidx.core.database.getFloatOrNull
 import androidx.core.database.getIntOrNull
 import com.example.projectdraft1.MeasureValue
@@ -224,6 +225,12 @@ class DBManager(context: Context) {
             null
         )
 
+        if (cursor == null) {
+            Log.d("tag123", "cursorDose is null")
+        } else {
+            Log.d("tag123", "cursorDose is not null")
+        }
+
         while(cursor?.moveToNext()!!){
             val done = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE_DONE))
 
@@ -278,7 +285,7 @@ class DBManager(context: Context) {
     }
 
     @SuppressLint("Recycle", "Range")
-    fun readMeasure(type: String) : ArrayList<MeasureValue>{
+    fun readMeasure(type: String): ArrayList<MeasureValue>{
         val dataList = ArrayList<MeasureValue>()
 
         val cursor = db?.query(
@@ -292,18 +299,62 @@ class DBManager(context: Context) {
         )
 
         while(cursor?.moveToNext()!!) {
-            val dataType = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TYPE_MEASURE))
+            val measureType = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TYPE_MEASURE))
 
-            if (dataType == type) {
+            if (measureType == type) {
                 val topValue = cursor.getFloat(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TOP_VALUE))
                 val bottomValue = cursor.getIntOrNull(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_BOTTOM_VALUE))
                 val dateMeasure = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_MEASURE))
 
-                dataList.add(MeasureValue(topValue, bottomValue, dateMeasure, dataType))
+                dataList.add(MeasureValue(topValue, bottomValue, dateMeasure, measureType))
             }
         }
 
         return dataList
+    }
+
+    @SuppressLint("Range", "Recycle")
+    fun readLastMeasure(type: String): MeasureValue{
+        var counter = 1
+
+        var measureValue = MeasureValue(
+            0f,
+            0,
+            "2023-01-01",
+            DBNameClass.TYPE_PRESSURE
+        )
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME_MEASURE,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToPosition(cursor.count - counter)!!) {
+            val measureType = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TYPE_MEASURE))
+
+            if (measureType == type) {
+                val topValue = cursor.getFloat(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TOP_VALUE))
+                val bottomValue = cursor.getIntOrNull(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_BOTTOM_VALUE))
+                val dateMeasure = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_MEASURE))
+
+                measureValue = MeasureValue(topValue, bottomValue, dateMeasure, measureType)
+
+                break
+            }
+
+            if (cursor.count - counter == 0) {
+                break
+            }
+
+            counter++
+        }
+
+        return measureValue
     }
 
     // удаление дозы лекарства по id

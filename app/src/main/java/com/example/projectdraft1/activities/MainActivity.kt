@@ -18,6 +18,7 @@ import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.channelID
 import com.example.projectdraft1.databinding.ActivityMainBinding
 import com.example.projectdraft1.db.DBManager
+import com.example.projectdraft1.db.DBNameClass
 import com.example.projectdraft1.fragments.FragmentMedicine
 
 class MainActivity : AppCompatActivity() {
@@ -51,10 +52,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.pill -> {
                     supportActionBar!!.title = resources.getString(R.string.medicine)
                     openFragment(FragmentMedicine())
-                }
-                R.id.setting -> {
-                    supportActionBar!!.title = resources.getString(R.string.settings)
-                    openFragment(FragmentSettings())
                 }
             }
 

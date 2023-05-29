@@ -26,7 +26,7 @@ object DBNameClass : BaseColumns {
     const val COLUMN_NAME_DOSE_DONE = "done"
     const val COLUMN_NAME_DOSE_NOTIFY = "notify"
 
-    const val TABLE_NAME_MEASURE = "myTablePressure"
+    const val TABLE_NAME_MEASURE = "myTableMeasure"
     const val COLUMN_NAME_TOP_VALUE = "top_value"
     const val COLUMN_NAME_BOTTOM_VALUE = "bottom_value"
     const val COLUMN_NAME_DATE_MEASURE = "date_measure"
@@ -36,7 +36,7 @@ object DBNameClass : BaseColumns {
     const val TYPE_WEIGHT = "weight"
     const val TYPE_TEMPERATURE = "temperature"
 
-    const val DATABASE_VERSION = 10
+    const val DATABASE_VERSION = 14
     const val DATABASE_NAME = "MyDB.db"
 
     const val CREATE_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_NAME " +
