@@ -46,7 +46,6 @@ class ScheduleAlarm(
         )
 
         Log.d("tag123", "$hour : $minute")
-        /*Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()*/
         Log.d("tag123", "done")
     }
 
