@@ -18,10 +18,10 @@
 
         <ImageView
             android:id="@+id/acceptDoseImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             app:srcCompat="@drawable/pill_2" />
 
         <TextView
@@ -29,11 +29,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="90dp"
             android:fontFamily="@font/inter_medium"
             android:text="Лекарство 1"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvAcceptDoseInfo"
@@ -44,16 +44,7 @@
             android:fontFamily="@font/inter_medium"
             android:text="Принять 1 таблетка(-и/-ок)\nНазначено на 21:00"
             android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:id="@+id/btMissDose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@null"
-            android:paddingTop="10dp"
-            android:src="@drawable/ic_info_dose" />
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/btAcceptDose"
@@ -62,7 +53,7 @@
             android:layout_gravity="bottom|right"
             android:background="@null"
             android:paddingTop="10dp"
-            android:src="@drawable/button_accept_dose" />
+            android:src="@drawable/button_accept_dose2" />
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

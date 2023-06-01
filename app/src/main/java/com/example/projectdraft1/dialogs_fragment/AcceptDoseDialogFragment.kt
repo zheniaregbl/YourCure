@@ -61,10 +61,6 @@ class AcceptDoseDialogFragment(
             dismiss()
         }
 
-        rootView.btMissDose.setOnClickListener {
-            dismiss()
-        }
-
         return rootView
     }
 }
