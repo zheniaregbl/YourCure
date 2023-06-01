@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_rounded"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="11dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardImageMedication"
+            android:layout_width="300dp"
+            android:layout_height="96dp"
+            android:backgroundTint="@color/blue_grey"
+            app:cardCornerRadius="0dp">
+
+            <ImageView
+                android:id="@+id/imBtDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                app:srcCompat="@drawable/ic_delete_medication" />
+
+            <TextView
+                android:id="@+id/tvInfoMedicationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="115dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="Лекарство 1"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRound"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="6dp">
+
+                <ImageView
+                    android:id="@+id/imageInfoMedication"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    app:srcCompat="@drawable/pill_1" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tvInfoMedDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Курс приема:"
+            android:textColor="@color/blue_grey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvInfoMedCountDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="147dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="0/10 день"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvInfoMedDateStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="186dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Дата начала приема:"
+            android:textColor="@color/blue_grey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="223dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="2023-06-01"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvInfoNotify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="260dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Напоминания:"
+            android:textColor="@color/blue_grey"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvNotify1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="297dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Время: 12:00\nПринять 1 таблетка(-и/-ок)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNotify2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Время: 12:00\nПринять 1 таблетка(-и/-ок)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNotify3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="403dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Время: 12:00\nПринять 1 таблетка(-и/-ок)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNotify4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="456dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Время: 12:00\nПринять 1 таблетка(-и/-ок)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvNotify5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="509dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Время: 12:00\nПринять 1 таблетка(-и/-ок)"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

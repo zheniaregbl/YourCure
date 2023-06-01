@@ -105,13 +105,58 @@ class DBManager(context: Context) {
             val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
             val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
             val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
-            /*val countDose = JSONObject(stringJson).getJSONArray("dose").length()
-
-            (days == 0) or (acceptDose < days * countDose)*/
 
             val end = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_END))
 
             if (end == 0){
+                val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+                val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
+                val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
+
+                dataList.add(
+                    Medication(
+                        id,
+                        imageID,
+                        title,
+                        dateStart,
+                        stringJson,
+                        days,
+                        daysPass,
+                        acceptDose
+                    )
+                )
+            }
+        }
+
+        cursor.close()
+
+        return dataList
+    }
+
+    @SuppressLint("Recycle", "Range")
+    fun readNonActiveMedication() : ArrayList<Medication>{
+        val dataList = ArrayList<Medication>()
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!){
+            val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+            val daysPass = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS_PASS))
+            val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
+            val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
+            val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
+
+            val end = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_END))
+
+            if (end == 1){
                 val id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
                 val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
                 val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
@@ -250,6 +295,50 @@ class DBManager(context: Context) {
         return dataList
     }
 
+    @SuppressLint("Range", "Recycle")
+    fun foundMedication(id: Int) : Medication? {
+        var medication: Medication? = null
+
+        val cursor = db?.query(
+            DBNameClass.TABLE_NAME,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        while(cursor?.moveToNext()!!) {
+            val medId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
+
+            if (medId == id) {
+                val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
+                val daysPass = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS_PASS))
+                val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
+                val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
+                val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
+                val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
+                val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
+
+                medication = Medication(
+                    medId,
+                    imageID,
+                    title,
+                    dateStart,
+                    stringJson,
+                    days,
+                    daysPass,
+                    acceptDose
+                )
+
+                break
+            }
+        }
+
+        return medication
+    }
+
     // получение доз, о которых не было уведомлений
     @SuppressLint("Recycle", "Range")
     fun readNoNotifyDose() : ArrayList<MedicationDose> {
@@ -357,11 +446,19 @@ class DBManager(context: Context) {
         return measureValue
     }
 
-    // удаление дозы лекарства по id
+    // удаление дозы лекарства по idMed
     fun deleteDose(id: String){
-        val selection = BaseColumns._ID + "=$id"
+        val selection = DBNameClass.COLUMN_NAME_MEDICATION_ID + "=$id"
 
         db?.delete(DBNameClass.TABLE_NAME_DOSE, selection, null)
+    }
+
+    fun deleteMedication(id: String){
+        val selection = BaseColumns._ID + "=$id"
+
+        db?.delete(DBNameClass.TABLE_NAME, selection, null)
+
+        deleteDose(id)
     }
 
     // удаление всех доз лекарств

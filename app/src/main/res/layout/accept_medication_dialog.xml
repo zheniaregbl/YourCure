@@ -53,7 +53,7 @@
             android:layout_gravity="bottom"
             android:background="@null"
             android:paddingTop="10dp"
-            android:src="@drawable/button_miss_dose" />
+            android:src="@drawable/ic_info_dose" />
 
         <ImageButton
             android:id="@+id/btAcceptDose"

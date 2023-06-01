@@ -60,7 +60,7 @@ class ScheduleAlarm(
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
-                (0..Int.MAX_VALUE).random(),
+                (1..Int.MAX_VALUE).random(),
                 intent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )

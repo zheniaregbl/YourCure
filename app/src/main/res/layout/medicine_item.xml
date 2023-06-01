@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="140dp"
+        android:layout_height="135dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="11dp">
+
+        <ImageView
+            android:id="@+id/imageMedicine"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/pill_1" />
+
+        <TextView
+            android:id="@+id/tvMedicineInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="Лекарство 1"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvMedicineInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/inter_medium"
+            android:text="0/10 дней"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

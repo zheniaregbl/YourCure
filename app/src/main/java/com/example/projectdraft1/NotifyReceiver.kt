@@ -3,6 +3,7 @@ package com.example.projectdraft1
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.projectdraft1.activities.MainActivity
 import com.example.projectdraft1.db.DBManager
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -77,15 +79,23 @@ class NotifyReceiver : BroadcastReceiver() {
             Log.d("tag123", SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Date()))
 
             val notification = NotificationCompat.Builder(context, channelID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_application_foreground)
                 .setContentTitle(intent.getStringExtra(titleExtra))
                 .setContentText(intent.getStringExtra(messageExtra))
+                .setContentIntent(
+                    PendingIntent.getActivity(
+                        context,
+                        0,
+                        Intent(context, MainActivity::class.java),
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                )
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .build()
 
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            manager.notify((0..Int.MAX_VALUE).random(), notification)
+            manager.notify((1..Int.MAX_VALUE).random(), notification)
 
             val doseList = dbManager.readNoNotifyDose()
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
