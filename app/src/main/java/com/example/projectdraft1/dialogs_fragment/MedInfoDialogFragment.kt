@@ -65,7 +65,7 @@ class MedInfoDialogFragment(
         }
 
         fun setFirstAlarm(){
-            val doseList = dbManager.readActiveDose()
+            val doseList = dbManager.readNoNotifyDose()
             val scheduleAlarm = ScheduleAlarm(appContext, alarmManager)
 
             if (doseList.isEmpty()) {

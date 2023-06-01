@@ -79,7 +79,7 @@ class NotifyReceiver : BroadcastReceiver() {
             Log.d("tag123", SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(Date()))
 
             val notification = NotificationCompat.Builder(context, channelID)
-                .setSmallIcon(R.mipmap.ic_application_foreground)
+                .setSmallIcon(R.drawable.ic_pill)
                 .setContentTitle(intent.getStringExtra(titleExtra))
                 .setContentText(intent.getStringExtra(messageExtra))
                 .setContentIntent(

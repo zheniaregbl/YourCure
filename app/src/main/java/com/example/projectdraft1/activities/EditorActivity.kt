@@ -409,7 +409,7 @@ class EditorActivity : AppCompatActivity() {
     }
 
     private fun setFirstAlarm(){
-        val doseList = dbManager.readActiveDose()
+        val doseList = dbManager.readNoNotifyDose()
 
         doseList.sort()
         val firstDose = doseList.first()
