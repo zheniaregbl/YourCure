@@ -270,12 +270,6 @@ class DBManager(context: Context) {
             null
         )
 
-        if (cursor == null) {
-            Log.d("tag123", "cursorDose is null")
-        } else {
-            Log.d("tag123", "cursorDose is not null")
-        }
-
         while(cursor?.moveToNext()!!){
             val done = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE_DONE))
 
@@ -293,50 +287,6 @@ class DBManager(context: Context) {
         }
 
         return dataList
-    }
-
-    @SuppressLint("Range", "Recycle")
-    fun foundMedication(id: Int) : Medication? {
-        var medication: Medication? = null
-
-        val cursor = db?.query(
-            DBNameClass.TABLE_NAME,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
-
-        while(cursor?.moveToNext()!!) {
-            val medId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID))
-
-            if (medId == id) {
-                val days = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS))
-                val daysPass = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DAYS_PASS))
-                val dateStart = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DATE_START))
-                val acceptDose = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_ACCEPT_DOSE))
-                val stringJson = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_DOSE))
-                val title = cursor.getString(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_TITLE))
-                val imageID = cursor.getInt(cursor.getColumnIndex(DBNameClass.COLUMN_NAME_IMAGE_ID))
-
-                medication = Medication(
-                    medId,
-                    imageID,
-                    title,
-                    dateStart,
-                    stringJson,
-                    days,
-                    daysPass,
-                    acceptDose
-                )
-
-                break
-            }
-        }
-
-        return medication
     }
 
     // получение доз, о которых не было уведомлений
@@ -447,7 +397,7 @@ class DBManager(context: Context) {
     }
 
     // удаление дозы лекарства по idMed
-    fun deleteDose(id: String){
+    private fun deleteDose(id: String){
         val selection = DBNameClass.COLUMN_NAME_MEDICATION_ID + "=$id"
 
         db?.delete(DBNameClass.TABLE_NAME_DOSE, selection, null)

@@ -1,17 +1,14 @@
 package com.example.projectdraft1.activities
 
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectdraft1.InputFilterFloat
 import com.example.projectdraft1.InputFilterMinMax
-import com.example.projectdraft1.MeasureAdapter
+import com.example.projectdraft1.adapters.MeasureAdapter
 import com.example.projectdraft1.R
 import com.example.projectdraft1.databinding.ActivityMeasureBinding
 import com.example.projectdraft1.db.DBManager

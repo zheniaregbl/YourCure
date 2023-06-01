@@ -1,6 +1,10 @@
 package com.example.projectdraft1.dialogs_fragment
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +12,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.projectdraft1.DosePerformance
 import com.example.projectdraft1.Medication
-import com.example.projectdraft1.MedicationDose
-import com.example.projectdraft1.MedicineAdapter
+import com.example.projectdraft1.NotifyReceiver
+import com.example.projectdraft1.adapters.MedicineAdapter
 import com.example.projectdraft1.R
+import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.db.DBManager
 import com.example.projectdraft1.getDoseFromJson
 import kotlinx.android.synthetic.main.fragment_info_medication.view.*
@@ -18,7 +23,9 @@ import kotlinx.android.synthetic.main.fragment_info_medication.view.*
 class MedInfoDialogFragment(
     private val dbManager: DBManager,
     private val element: Medication,
-    private val adapter: MedicineAdapter
+    private val adapter: MedicineAdapter,
+    private val appContext: Context,
+    private val alarmManager: AlarmManager
 ) : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +64,37 @@ class MedInfoDialogFragment(
             rootView.tvStartDate.text = item.dateStart
         }
 
+        fun setFirstAlarm(){
+            val doseList = dbManager.readActiveDose()
+            val scheduleAlarm = ScheduleAlarm(appContext, alarmManager)
+
+            if (doseList.isEmpty()) {
+                scheduleAlarm.setUniqueAlarm()
+            } else {
+                val pendingIntent = PendingIntent.getBroadcast(
+                    appContext,
+                    100,
+                    Intent(appContext, NotifyReceiver::class.java),
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+                alarmManager.cancel(pendingIntent)
+                doseList.sort()
+
+                val firstDose = doseList.first()
+                val hour = firstDose.time.substring(0, 2).toInt()
+                val minute = firstDose.time.substring(3, firstDose.time.length).toInt()
+
+                scheduleAlarm.setTimeAlarm(
+                    firstDose.doseId,
+                    hour,
+                    minute,
+                    firstDose.title,
+                    "Примите лекарство ${firstDose.title}"
+                )
+            }
+        }
+
         initElements(element)
 
         val doseList: ArrayList<DosePerformance> = getDoseFromJson(element)
@@ -71,6 +109,8 @@ class MedInfoDialogFragment(
         rootView.imBtDelete.setOnClickListener {
             dbManager.deleteMedication(element.medicationId.toString())
             adapter.removeItem(element.medicationId)
+
+            setFirstAlarm()
 
             dismiss()
         }

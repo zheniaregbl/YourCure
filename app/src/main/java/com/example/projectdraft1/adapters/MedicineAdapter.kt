@@ -1,10 +1,12 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projectdraft1.Medication
+import com.example.projectdraft1.R
 import com.example.projectdraft1.databinding.MedicineItemBinding
 
 class MedicineAdapter(private val listener: Listener): RecyclerView.Adapter<MedicineAdapter.MedicineHolder>() {
@@ -23,9 +25,9 @@ class MedicineAdapter(private val listener: Listener): RecyclerView.Adapter<Medi
                 tvMedicineInfo2.text = "∞"
             } else {
                 if (medication.daysPass == 0){
-                    tvMedicineInfo2.text = "0/${medication.days}"
+                    tvMedicineInfo2.text = "0/${medication.days} дней"
                 } else {
-                    tvMedicineInfo2.text = "${medication.acceptDose / medication.daysPass}/${medication.days}"
+                    tvMedicineInfo2.text = "${medication.acceptDose / medication.daysPass}/${medication.days} дней"
                 }
             }
 
@@ -36,7 +38,8 @@ class MedicineAdapter(private val listener: Listener): RecyclerView.Adapter<Medi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicineHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.medicine_item,
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.medicine_item,
             parent,
             false)
 

@@ -1,10 +1,12 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projectdraft1.MedicationDose
+import com.example.projectdraft1.R
 import com.example.projectdraft1.databinding.MedicationItem2Binding
 
 class MedicationAdapter(private val listener: Listener): RecyclerView.Adapter<MedicationAdapter.MedicationHolder>() {
@@ -29,7 +31,8 @@ class MedicationAdapter(private val listener: Listener): RecyclerView.Adapter<Me
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicationHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.medication_item2,
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.medication_item2,
             parent,
             false)
 

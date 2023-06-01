@@ -1,10 +1,12 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projectdraft1.MeasureValue
+import com.example.projectdraft1.R
 import com.example.projectdraft1.databinding.MeasureItemBinding
 import com.example.projectdraft1.db.DBNameClass
 
@@ -41,14 +43,15 @@ class MeasureAdapter(private val type: String): RecyclerView.Adapter<MeasureAdap
         parent: ViewGroup,
         viewType: Int
     ): MeasureHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.measure_item,
+        val view = LayoutInflater.from(parent.context).inflate(
+            R.layout.measure_item,
             parent,
             false)
 
-        return MeasureAdapter.MeasureHolder(view, type)
+        return MeasureHolder(view, type)
     }
 
-    override fun onBindViewHolder(holder: MeasureAdapter.MeasureHolder, position: Int) {
+    override fun onBindViewHolder(holder: MeasureHolder, position: Int) {
         holder.bind(measureValueList[position])
     }
 

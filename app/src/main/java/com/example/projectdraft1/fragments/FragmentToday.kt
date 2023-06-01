@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projectdraft1.MedicationAdapter
+import com.example.projectdraft1.adapters.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
 import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.activities.EditorActivity

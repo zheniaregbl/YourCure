@@ -31,7 +31,7 @@ class ScheduleAlarm(
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            id,
+            100,
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -52,7 +52,7 @@ class ScheduleAlarm(
     fun setUniqueAlarm() {
         dbManager.openDB()
 
-        if (dbManager.readActiveDose().isEmpty() and dbManager.readActiveMedication().isNotEmpty()) {
+        if (dbManager.readNoNotifyDose().isEmpty() and dbManager.readActiveMedication().isNotEmpty()) {
             val intent = Intent(context, NotifyReceiver::class.java)
 
             intent.action = "uniqueAlarm"
@@ -60,7 +60,7 @@ class ScheduleAlarm(
 
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
-                (1..Int.MAX_VALUE).random(),
+                11,
                 intent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
@@ -77,7 +77,6 @@ class ScheduleAlarm(
             )
 
             Log.d("tag123", "setUnique")
-            /*Toast.makeText(context, "setUnique", Toast.LENGTH_SHORT).show()*/
         }
 
         dbManager.closeDB()

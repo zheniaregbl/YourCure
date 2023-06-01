@@ -1,10 +1,12 @@
-package com.example.projectdraft1
+package com.example.projectdraft1.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.example.projectdraft1.R
+import com.example.projectdraft1.SpinnerMedication
 import kotlinx.android.synthetic.main.spinner_item.view.*
 
 class MedicationArrayAdapter(context: Context, medicationList: List<SpinnerMedication>) : ArrayAdapter<SpinnerMedication>(context, 0, medicationList) {

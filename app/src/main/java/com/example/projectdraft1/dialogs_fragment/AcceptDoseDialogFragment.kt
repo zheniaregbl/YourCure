@@ -1,14 +1,12 @@
 package com.example.projectdraft1.dialogs_fragment
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.example.projectdraft1.MedicationAdapter
+import com.example.projectdraft1.adapters.MedicationAdapter
 import com.example.projectdraft1.MedicationDose
 import com.example.projectdraft1.R
 import com.example.projectdraft1.ScheduleAlarm

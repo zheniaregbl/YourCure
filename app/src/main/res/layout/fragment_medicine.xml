@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Завершенные" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -30,4 +31,26 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="25dp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animMedicine"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/placeHolder"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/medication_animation" />
+
+    <TextView
+        android:id="@+id/tvNotOnceMedication"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="450dp"
+        android:fontFamily="@font/inter_medium"
+        android:gravity="center"
+        android:text="Список лекарств пуст"
+        android:textColor="@color/dark_grey"
+        android:textSize="20sp" />
 </FrameLayout>

@@ -3,6 +3,7 @@ package com.example.projectdraft1.activities
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
 import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -10,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -19,13 +19,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.get
 import com.example.projectdraft1.dialogs_fragment.DaysAmountDialogFragment
-import com.example.projectdraft1.MedicationArrayAdapter
-import com.example.projectdraft1.MedicationDose
+import com.example.projectdraft1.adapters.MedicationArrayAdapter
 import com.example.projectdraft1.Medications
 import com.example.projectdraft1.R
 import com.example.projectdraft1.ScheduleAlarm
 import com.example.projectdraft1.dialogs_fragment.TimeDialogFragment
-import com.example.projectdraft1.dialogs_fragment.WeekDialogFragment
 import com.example.projectdraft1.databinding.ActivityEditorBinding
 import com.example.projectdraft1.db.DBManager
 import com.google.android.material.shape.CornerFamily
@@ -157,7 +155,7 @@ class EditorActivity : AppCompatActivity() {
                     }
                 }
 
-                dbManager.closeDB()
+                setFirstAlarm()
 
                 finish()
             } else {
@@ -408,5 +406,34 @@ class EditorActivity : AppCompatActivity() {
                 dialog.show(supportFragmentManager, "timeDialog")
             }
         }
+    }
+
+    private fun setFirstAlarm(){
+        val doseList = dbManager.readActiveDose()
+
+        doseList.sort()
+        val firstDose = doseList.first()
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            100,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager.cancel(pendingIntent)
+
+        val hour = firstDose.time.substring(0, 2).toInt()
+        val minute = firstDose.time.substring(3, firstDose.time.length).toInt()
+
+        val scheduleAlarm = ScheduleAlarm(applicationContext, alarmManager)
+        scheduleAlarm.setTimeAlarm(
+            firstDose.doseId,
+            hour,
+            minute,
+            firstDose.title,
+            "Примите лекарство ${firstDose.title}"
+        )
     }
 }

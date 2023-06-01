@@ -98,6 +98,7 @@ class NotifyReceiver : BroadcastReceiver() {
             manager.notify((1..Int.MAX_VALUE).random(), notification)
 
             val doseList = dbManager.readNoNotifyDose()
+
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val scheduleAlarm = ScheduleAlarm(context, alarmManager)
 

@@ -1,5 +1,6 @@
 package com.example.projectdraft1.fragments
 
+import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectdraft1.Medication
-import com.example.projectdraft1.MedicineAdapter
-import com.example.projectdraft1.R
+import com.example.projectdraft1.adapters.MedicineAdapter
 import com.example.projectdraft1.databinding.FragmentMedicineBinding
 import com.example.projectdraft1.db.DBManager
 import com.example.projectdraft1.dialogs_fragment.MedInfoDialogFragment
@@ -19,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 class FragmentMedicine : Fragment(), MedicineAdapter.Listener {
     lateinit var binding: FragmentMedicineBinding
     lateinit var dbManager: DBManager
+    lateinit var alarmManager: AlarmManager
     private var isActive = true
     private val adapter = MedicineAdapter(this)
 
@@ -34,6 +34,7 @@ class FragmentMedicine : Fragment(), MedicineAdapter.Listener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
+        alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         dbManager = DBManager(context)
     }
 
@@ -86,7 +87,7 @@ class FragmentMedicine : Fragment(), MedicineAdapter.Listener {
         })
     }
 
-    private fun fillAdapter(isActive: Boolean){
+    private fun fillAdapter(isActive: Boolean) = with(binding){
         val medicationList: ArrayList<Medication> = if (isActive) {
             dbManager.readActiveMedication()
         } else {
@@ -94,6 +95,14 @@ class FragmentMedicine : Fragment(), MedicineAdapter.Listener {
         }
 
         adapter.setListAdapter(medicationList)
+
+        if (medicationList.isEmpty()) {
+            animMedicine.visibility = View.VISIBLE
+            tvNotOnceMedication.visibility = View.VISIBLE
+        } else {
+            animMedicine.visibility = View.GONE
+            tvNotOnceMedication.visibility = View.GONE
+        }
     }
 
     companion object {
@@ -102,7 +111,13 @@ class FragmentMedicine : Fragment(), MedicineAdapter.Listener {
     }
 
     override fun onClick(medication: Medication) {
-        val dialog = MedInfoDialogFragment(dbManager, medication, adapter)
+        val dialog = MedInfoDialogFragment(
+            dbManager,
+            medication,
+            adapter,
+            requireActivity().applicationContext,
+            alarmManager
+        )
 
         dialog.show(childFragmentManager, "infoMedicationDialog")
     }
